@@ -25,7 +25,7 @@ git clone https://github.com/RackiSebastian/TeamSoftwareProjectUcc.git
     3. git commit -m "A message" <- this is neccesary do not upload code without message
     4. git push origin <yourbranchname>
 
-    ![](/images/gitpic2.PNG)
+![](/images/gitpic2.PNG)
 
 ## Merge master with branch 
 
@@ -33,4 +33,5 @@ git clone https://github.com/RackiSebastian/TeamSoftwareProjectUcc.git
     2. git merge <nameofyourbranch or branch you want to merge into main>
     3. compare and pull on github 
 
-    ![](/images/gitpic3.PNG)
+
+![](/images/gitpic3.PNG)
