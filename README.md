@@ -6,7 +6,7 @@
     Cathal Donovan O'Neill: x 
     Naina Nair : x 
     Berni Grabarczyk : x
-    Allan Barry: x 
+    Allan Barry: 117343896 
 
 ## How to pull github files to local server 
 
