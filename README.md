@@ -12,4 +12,4 @@
 
 git clone https://github.com/RackiSebastian/TeamSoftwareProjectUcc.git
 
-![](images/gitpic.png)
+![](/images/gitpic.PNG)
