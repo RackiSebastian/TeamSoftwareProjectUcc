@@ -13,3 +13,11 @@
 git clone https://github.com/RackiSebastian/TeamSoftwareProjectUcc.git
 
 ![](/images/gitpic.PNG)
+
+## Create your own branch
+
+![](/images/gitpic1.PNG)
+
+## Push something onto branch 
+
+
