@@ -23,10 +23,10 @@ class Authenticate(APIView):
 	def Get_request(self,request,format = None):
 		scope = 'user-read-playback-state user-modify-playback-state user-read-current-playing'
 
-		get_req = Request('GET', 'https://accounts.spotify.com/authorize',parama = {
+		get_req = Request('GET', 'https://accounts.spotify.com/authorize',params = {
 			'scope':scope,
 			'response_type': 'code',
-			'redirect_uri': '',
+			'redirect_uri': 'http://127.0.0.1/',
 			'id': ID
 			}).prepare().url
 
@@ -34,7 +34,7 @@ class Authenticate(APIView):
 
 
 def get_token(session_id):
-	u_token = Tokens.objects.filet(user = session_id)
+	u_token = Tokens.objects.filter(user = session_id)
 
 	if u_token.exists(): 
 		return u_token[0]
@@ -72,7 +72,7 @@ def callback(request,format = None):
 		
 		'code' : response, 
 		'grant_type': 'authorization_code',
-		'redirect_uri': '', 
+		'redirect_uri':  'http://127.0.0.1/', 
 		'client_id': ID,
 		'client_secret' : SECRET, 
 		}).json()
@@ -90,6 +90,8 @@ def callback(request,format = None):
 	#When this function runs redirect us back to our original application 
 	return redirect('admin/')
 
+
+
 def is_authenticated(session_id):
 	token = get_token(session_id).refresh_token
 
@@ -97,6 +99,8 @@ def is_authenticated(session_id):
 		date = token.expires_in
 		if date <= timezone.now():
 			refreshToken(session_id) 
+		return True 
+
 	return False	
 
 def refreshToken(session_id):
@@ -113,4 +117,13 @@ def refreshToken(session_id):
 	access_token = refresh_token.get('access_token')
 	token_type = refresh_token.get('token_type')
 	expires_in = refresh_token.get('expires_in')
-	refresh_token = refresh_token.get(token)
+	refresh_token = refresh_token.get('refresh_token')
+
+	handle_user_tokens(session_id,access_token,token_type,expires_in,refresh_token)
+
+
+
+class Authenticated(APIView):
+	def get(self,request,format = None):
+		authenticated = is_authenticated(self.request.session.session_key)
+		return Response({'status':authenticated},status = status.HTTP_200_OK)
