@@ -1,6 +1,6 @@
 @echo off
 
-set "VIRTUAL_ENV=C:\Users\Sebastian-PC\Desktop\TeamSoftwareProjectUCc"
+set "VIRTUAL_ENV=C:\Users\Allan\Desktop\TeamSoftwareProjectUcc"
 
 if defined _OLD_VIRTUAL_PROMPT (
     set "PROMPT=%_OLD_VIRTUAL_PROMPT%"
@@ -13,7 +13,12 @@ if defined _OLD_VIRTUAL_PROMPT (
     )
 )
 if not defined VIRTUAL_ENV_DISABLE_PROMPT (
-    set "PROMPT=(TeamSoftwareProjectUCc) %PROMPT%"
+    set "ENV_PROMPT="
+    if NOT DEFINED ENV_PROMPT (
+        for %%d in ("%VIRTUAL_ENV%") do set "ENV_PROMPT=(%%~nxd) "
+    )
+    )
+    set "PROMPT=%ENV_PROMPT%%PROMPT%"
 )
 
 REM Don't use () to avoid problems with them in %PATH%
