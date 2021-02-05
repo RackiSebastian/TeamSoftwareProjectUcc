@@ -5,7 +5,6 @@
     Sebastian Racki: 118459412 
     Cathal Donovan O'Neill: 118495052
     Naina Nair : 118100268
-    Berni Grabarczyk : x
     Allan Barry: 117343896 
 
 ## How to pull github files to local server 
