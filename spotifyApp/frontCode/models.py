@@ -19,3 +19,5 @@ class Room(models.Model):
 	vote_to_skip = models.IntegerField(null = False,default = 0) 
 	date_time = models.DateTimeField(auto_now_add =True)
 	
+
+print("Hello World")
