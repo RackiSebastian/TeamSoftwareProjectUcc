@@ -1,5 +1,6 @@
-from rest_framwork import serializers
+from rest_framework import serializers
 from .models import Room
+
 
 class Serializer(serializers.ModelSerializer):
 	class Meta:

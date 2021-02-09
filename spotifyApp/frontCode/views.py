@@ -1,18 +1,22 @@
 from django.shortcuts import render
 from rest_framework import generics,status
-from .serializer import Serializer,CreateRoom
+from .serializier import Serializer,createRoom
 from .models import Room 
 from rest_framework.response import Response
+from rest_framework.views import APIView
 # Create your views here.
+
+
+#HAS TO BE LISTAPI otherwise you can create new models from the webpage by post REQUESTS
 class RoomView(generics.ListAPIView):
-	query = Room.objects.all() #gets all objects in the room model
-	serializer = serializer
+	queryset = Room.objects.all() #gets all objects in the room model
+	serializer_class = Serializer
 
 
 class CreateRoom(APIView):
-	serializer = CreateRoom
+	serializer = createRoom
 
-	def post_request(self,request,format = None)
+	def post_request(self,request,format = None):
 
 		if not self.request.session.exists(self.request.session.session_key):
 			self.request.session.create()
