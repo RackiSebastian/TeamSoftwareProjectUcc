@@ -34,3 +34,12 @@ git clone https://github.com/RackiSebastian/TeamSoftwareProjectUcc.git
 
 
 ![](/images/gitpic3.PNG)
+
+##Running program
+
+    1. Check if Python is intalled on computer with 'python --version'
+    2. If not, download and install Python from https://www.python.org/
+    3. Check if NPM is installed on computer with 'npm -v'
+    4. Download and install NodeJS/NPM from https://nodejs.org/en/download/
+    5. Using command line, navigate inside /(path to folder)/TeamSoftwareProjectUcc/spotifyApp/static
+    6. Run'npm start'
