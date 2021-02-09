@@ -1,0 +1,17 @@
+appdirs==1.4.4
+asgiref==3.3.1
+certifi==2020.12.5
+chardet==4.0.0
+distlib==0.3.1
+Django==3.1.5
+djangorestframework==3.12.2
+filelock==3.0.12
+idna==2.10
+npm==0.1.1
+optional-django==0.1.0
+pytz==2020.5
+requests==2.25.1
+six==1.15.0
+sqlparse==0.4.1
+urllib3==1.26.3
+virtualenv==20.2.1
