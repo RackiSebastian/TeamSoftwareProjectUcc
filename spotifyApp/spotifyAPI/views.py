@@ -82,7 +82,7 @@ def callback(request,format = None):
 	refresh_token = response.get('refresh_token')
 	expires_in = reponse.get('expires_in')
 
-	if not rqeuest.session.exists(request.session.session_key):
+	if not request.session.exists(request.session.session_key):
 		request.session.create()
 
 	handle_user_tokens(request.session.session_key,access_token,token_type,refresh_token,expires_in)
@@ -126,4 +126,5 @@ def refreshToken(session_id):
 class Authenticated(APIView):
 	def get(self,request,format = None):
 		authenticated = is_authenticated(self.request.session.session_key)
+		
 		return Response({'status':authenticated},status = status.HTTP_200_OK)
