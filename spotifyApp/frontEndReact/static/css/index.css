@@ -1,0 +1,56 @@
+/__ frontEndReact/src/index.css  __/
+  
+  html {
+    background-color: #000000;
+  }
+  
+  a, a:hover{
+    color: white;
+    text-decoration: none;
+  }
+  
+  #logo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+  }
+  
+  input[type="text"] {
+    text-transform: lowercase;
+    }
+  
+  section {
+    padding-top: 250px;
+  }
+  
+  header {
+    height: 50px;
+    font-family: "Fira Sans";
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: "Fira Sans";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #000000;
+  }
+  .todo-title {
+    cursor: pointer;
+  }
+  .completed-todo {
+    text-decoration: line-through;
+  }
+  .tab-list > span {
+    padding: 5px 8px;
+    border: 1px solid #282c34;
+    border-radius: 10px;
+    margin-right: 5px;
+    cursor: pointer;
+  }
+  .tab-list > span.active {
+    background-color: #282c34;
+    color: #ffffff;
+  }

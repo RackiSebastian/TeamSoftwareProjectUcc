@@ -20,4 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('spotify/',include('spotifyAPI.urls')),
     path('frontCode/',include('frontCode.urls')),
+    path('',include('frontEndReact.urls')),
 ]
