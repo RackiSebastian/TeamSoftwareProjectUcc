@@ -35,7 +35,7 @@ git clone https://github.com/RackiSebastian/TeamSoftwareProjectUcc.git
 
 ![](/images/gitpic3.PNG)
 
-##Running program
+## Running program
 
     1. Check if Python is intalled on computer with 'python --version'
     2. If not, download and install Python from https://www.python.org/
