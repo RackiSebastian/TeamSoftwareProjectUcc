@@ -14,30 +14,29 @@ class RoomView(generics.ListAPIView):
 
 
 class CreateRoom(APIView):
-	serializer = createRoom
-
-	def post_request(self,request,format = None):
+	serializer_class = createRoom
+	def post(self,request,format = None): #needs to be called post for it to allow post requests
 
 		if not self.request.session.exists(self.request.session.session_key):
 			self.request.session.create()
 
-		serializer_class = self.serializer(data = request.data)
+		serializer = self.serializer_class(data = request.data)
 
-		if serializer_class.is_valid():
-			can_pause = serializer_class.data.get('can_pause')
-			skip = serializer_class.data.get('vote_to_skip')
+		if serializer.is_valid():
+			can_pause = serializer.data.get('can_pause')
+			skip = serializer.data.get('vote_to_skip')
 			host = self.request.session.session_key
 			query = Room.objects.filter(host = host)
 
 			if query.exists():
 				room = query[0]
 				room.can_pause = can_pause
-				room.vote_to_skip = vote_to_skip
+				room.vote_to_skip = skip
 
-				room.save(update_field = ['can_pause','vote_to_skip'])
-				return Reponse(Serializer(room).data,status = status.HTTP_200_OK)
+				room.save(update_fields = ['can_pause','vote_to_skip'])
+				return Response(Serializer(room).data,status = status.HTTP_200_OK)
 			else:
-				room = Room(host = host ,can_pause =can_pause,vote_to_skip= vote_to_skip)
+				room = Room(host = host ,can_pause =can_pause,vote_to_skip= skip)
 				room.save()
 				return Response(Serializer(room).data,status = status.HTTP_201_CREATED)
 

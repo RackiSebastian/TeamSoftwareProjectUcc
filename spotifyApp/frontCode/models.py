@@ -14,7 +14,7 @@ def unique_code():
 
 
 class Room(models.Model):
-	code = models.CharField(max_length = 7, default = "",unique = True)
+	code = models.CharField(max_length = 7, default = unique_code,unique = True)#Default set to unique_code so no repetitions possible
 	host = models.CharField(max_length = 255,unique = True)
 	can_pause = models.BooleanField(null = False,default = False)
 	vote_to_skip = models.IntegerField(null = False,default = 0) 
