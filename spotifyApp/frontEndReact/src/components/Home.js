@@ -9,8 +9,26 @@ class Home extends Component {
             inputBox: null,
             a: null,
             redirectJoin: false,
-            redirectCreate: false
+            redirectCreate: false,
+            authenticated: false
         };
+        this.authenticate = this.authenticate.bind(this);
+    }
+
+    authenticate() {
+        fetch("/spotify/authenticated")
+            .then((response) => response.json())
+            .then((data) => {
+                this.setState({authenticated: data.status});
+                console.log(data.status);
+                if (!data.status) {
+                    fetch("/spotify/get-auth-url")
+                        .then((response) => response.json())
+                        .then((data) => {
+                            window.location.replace(data.url);
+                        })
+                }
+        });
     }
   
     handleChange = ({target}) => {
@@ -32,6 +50,7 @@ class Home extends Component {
     }
 
     goToRoom = (event) => {
+        this.authenticate();
         if(event.target.id == "join_button"){
             if(document.getElementById("room_code").value.length !== 4){
                 this.setState({a: ''});
