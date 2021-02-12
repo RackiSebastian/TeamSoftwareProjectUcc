@@ -1,14 +1,14 @@
 from django.shortcuts import render, redirect
-from .client_secrets import ID,SECRET 
+from .client_secrets import ID, SECRET 
 from rest_framework.views import APIView
-from requests import Request, post
+from requests import Request, post, get
 from rest_framework import status
 from rest_framework.response import Response
 from .models import Tokens
 from datetime import timedelta
 from django.utils import timezone
-# Create your views here.
 
+# Create your views here.
 class Authenticate(APIView):
 	'''
 	Scope = all the scopes I want to use when accessing the user_data 
@@ -16,21 +16,19 @@ class Authenticate(APIView):
 	We then send a get request as it says in documentation 
 	We get the scope, response type : 404 etc and the client ID 
 
-
 	'''
 
+	def get(self, request, format = None):
+		scope = 'user-read-playback-state user-modify-playback-state user-read-currently-playing'
 
-	def Get_request(self,request,format = None):
-		scope = 'user-read-playback-state user-modify-playback-state user-read-current-playing'
-
-		get_req = Request('GET', 'https://accounts.spotify.com/authorize',params = {
-			'scope':scope,
+		get_req = Request('GET', 'https://accounts.spotify.com/authorize', params = {
+			'scope': scope,
 			'response_type': 'code',
-			'redirect_uri': 'http://127.0.0.1/',
-			'id': ID
-			}).prepare().url
+			'redirect_uri': 'http://127.0.0.1:8000/spotify/redirect',
+			'client_id': ID
+		}).prepare().url
 
-		return Reponse({'url':url}, status = status.HTTP_200_OK)
+		return Response({'url': get_req}, status = status.HTTP_200_OK)
 
 
 def get_token(session_id):
@@ -41,7 +39,7 @@ def get_token(session_id):
 	else:
 		return None 
 
-def handle_user_tokens(session_id,access_token,token_type,refresh_token,expires_in):
+def handle_user_tokens(session_id, access_token, token_type, refresh_token, expires_in):
 	token = get_token(session_id)
 	expires_in = timezone.now() + timedelta(seconds = expires_in)
 
@@ -50,14 +48,13 @@ def handle_user_tokens(session_id,access_token,token_type,refresh_token,expires_
 		token.token_type = token_type
 		token.refresh_token = refresh_token
 		token.expires_in = expires_in
-		token.save(update_fields =['access_token','refresh_token','expires_in','token_type'])
+		token.save(update_fields = ['access_token', 'refresh_token', 'expires_in', 'token_type'])
 	else:
-		token = Token(user = session_id,access_token = access_token , refresh_token = refresh_token,token_type =token_type , expires_in = expires_in)
+		token = Tokens(user = session_id, access_token = access_token , refresh_token = refresh_token, token_type = token_type , expires_in = expires_in)
 		token.save() 
 
 
-
-def callback(request,format = None): 
+def callback(request, format = None): 
 	'''
 		Second step says to take in the client_id ,
 		client_secret,
@@ -68,32 +65,31 @@ def callback(request,format = None):
 	response = request.GET.get('code')
 	error = request.GET.get('error')
 
-	response_json = post('https://accounts.spotify.com/api/token',data = {
-		
+	response_json = post('https://accounts.spotify.com/api/token', data = {
 		'code' : response, 
 		'grant_type': 'authorization_code',
-		'redirect_uri':  'http://127.0.0.1/', 
+		'redirect_uri':  'http://127.0.0.1:8000/spotify/redirect', 
 		'client_id': ID,
-		'client_secret' : SECRET, 
-		}).json()
+		'client_secret' : SECRET
+	}).json()
 
-	access_token = response.get('access_token')
-	token_type = response.get('token_type')
-	refresh_token = response.get('refresh_token')
-	expires_in = reponse.get('expires_in')
+	access_token = response_json.get('access_token')
+	token_type = response_json.get('token_type')
+	refresh_token = response_json.get('refresh_token')
+	expires_in = response_json.get('expires_in')
+	error = response_json.get('error')
 
 	if not request.session.exists(request.session.session_key):
 		request.session.create()
 
-	handle_user_tokens(request.session.session_key,access_token,token_type,refresh_token,expires_in)
+	handle_user_tokens(request.session.session_key, access_token, token_type, refresh_token, expires_in)
 
-	#When this function runs redirect us back to our original application 
-	return redirect('admin/')
-
+	# When this function runs redirect us back to our original application 
+	return redirect('frontend:')
 
 
 def is_authenticated(session_id):
-	token = get_token(session_id).refresh_token
+	token = get_token(session_id)
 
 	if token: 
 		date = token.expires_in
@@ -104,27 +100,24 @@ def is_authenticated(session_id):
 	return False	
 
 def refreshToken(session_id):
-	token = token.token 
+	refresh_token = get_token(session_id).refresh_token 
 
-	refresh_token = post('https://accounts.spotify.com/api/token',data = {
-		'grant_type': 'token',
-		'refresh_token': token, 
-		'client_id': ID , 
+	response_json = post('https://accounts.spotify.com/api/token', data = {
+		'grant_type': 'refresh_token',
+		'refresh_token': refresh_token, 
+		'client_id': ID, 
 		'client_secret' : SECRET
+	}).json()
 
-		}).json()
+	access_token = response_json.get('access_token')
+	token_type = response_json.get('token_type')
+	expires_in = response_json.get('expires_in')
 
-	access_token = refresh_token.get('access_token')
-	token_type = refresh_token.get('token_type')
-	expires_in = refresh_token.get('expires_in')
-	refresh_token = refresh_token.get('refresh_token')
-
-	handle_user_tokens(session_id,access_token,token_type,expires_in,refresh_token)
-
+	handle_user_tokens(session_id, access_token, token_type, refresh_token, expires_in)
 
 
 class Authenticated(APIView):
-	def get(self,request,format = None):
+	def get(self, request, format = None):
 		authenticated = is_authenticated(self.request.session.session_key)
 		
-		return Response({'status':authenticated},status = status.HTTP_200_OK)
+		return Response({'status': authenticated}, status = status.HTTP_200_OK)
