@@ -7,7 +7,6 @@ class Home extends Component {
         super();
         this.state = {
             inputBox: null,
-            a: null,
             redirectJoin: false,
             redirectCreate: false,
             authenticated: false
@@ -53,7 +52,6 @@ class Home extends Component {
         this.authenticate();
         if(event.target.id == "join_button"){
             if(document.getElementById("room_code").value.length !== 4){
-                this.setState({a: ''});
                 document.getElementById("invalid_code").innerHTML = "Invalid Room Code";
             } else {
                 this.setState({redirectJoin: true})
@@ -66,7 +64,7 @@ class Home extends Component {
     render() {
         return (
         <main className="content">
-            <header className="bg-success">
+            <header>
                 <h2 className="text-center font-weight-bold pt-1">Welcome to Spotify Groups, [username here]!</h2>
             </header>
             <div className="col text-center">
@@ -74,10 +72,10 @@ class Home extends Component {
                     <img src="../../static/images/spotifylogo.png" id="logo" className="App-logo"/>
                     {this.renderRedirectJoin()}
                     {this.renderRedirectCreate()}
-                    <button id="join_button" className="btn btn-success mr-2 pl-5 pr-5" onClick={this.goToRoom}>Join Room</button>
-                    <button id="create_button" className="btn btn-success ml-2 pl-5 pr-5" onClick={this.goToRoom}>Create Room</button>
+                    <button id="join_button" className="btn" onClick={this.goToRoom}>Join Room</button>
+                    <button id="create_button" className="btn" onClick={this.goToRoom}>Create Room</button>
                 </div>
-                <p className="mt-2 text-danger" id="invalid_code"></p>
+                <p className="" id="invalid_code"></p>
                 <input type="text" id="room_code" value={this.state.inputBox} onChange={this.handleChange} placeholder="Room code..." maxLength="4" />
             </div>
         </main>
