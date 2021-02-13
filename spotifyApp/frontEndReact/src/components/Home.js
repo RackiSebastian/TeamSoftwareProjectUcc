@@ -9,7 +9,9 @@ class Home extends Component {
             inputBox: null,
             redirectJoin: false,
             redirectCreate: false,
-            authenticated: false
+            authenticated: false,
+            display_name: null,
+            token: null // access token is set here
         };
         this.authenticate = this.authenticate.bind(this);
     }
@@ -28,6 +30,23 @@ class Home extends Component {
                         })
                 }
         });
+    }
+
+    getUsername = (token) => {
+        $.ajax({
+            url: "https://api.spotify.com/v1/me",
+            type: "GET",
+            beforeSend: (xhr) => {
+                xhr.setRequestHeader("Authorization", "Bearer " + token);
+            },
+            success: (data) => {
+                this.setState({
+                    display_name: data.display_name
+                });
+            }
+        });
+        document.getElementById("heading_start").innerHTML = "Welcome to Spotify Groups, ";
+        document.getElementById("heading_end").innerHTML = "!";
     }
   
     handleChange = ({target}) => {
@@ -63,9 +82,11 @@ class Home extends Component {
     
     render() {
         return (
-        <main className="content">
+        <main className="content" onLoad={() => this.getUsername(this.state.token)}>
             <header>
-                <h2 className="text-center font-weight-bold pt-1">Welcome to Spotify Groups, [username here]!</h2>
+                <h2 id="heading_start" className="text-center font-weight-bold pt-1">Welcome to Spotify Groups!</h2>
+                <h2 className="text-center font-weight-bold pt-1" dangerouslySetInnerHTML={{__html: this.state.display_name}}></h2>
+                <h2 id="heading_end"></h2>
             </header>
             <div className="col text-center">
                 <div>
