@@ -33,12 +33,15 @@
   }
   
   header {
+    text-align: center;
+    background-color: #28a745;
     height: 50px;
     font-family: "Fira Sans";
+    clear: both;
   }
 
-  header {
-    background-color: #28a745;
+  h2 {
+    display: inline;
   }
 
   button {
