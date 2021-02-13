@@ -12,12 +12,21 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 30%;
+    margin-top: 5em;
+    margin-bottom: 2em;
+    width: 25%;
   }
   
   input[type="text"] {
     text-transform: lowercase;
-    }
+  }
+
+  input[type="text"]:focus{
+    border-color: #28a745;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(4, 167, 69, 1);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(4, 167, 69, 1);
+  }
   
   section {
     padding-top: 250px;
@@ -26,6 +35,32 @@
   header {
     height: 50px;
     font-family: "Fira Sans";
+  }
+
+  header {
+    background-color: #28a745;
+  }
+
+  button {
+    background-color: #28a745 !important;
+    color: white !important;
+  }
+
+  #join_button {
+    margin-right: 0.5em;
+    padding-left: 3em;
+    padding-right: 3em;
+  }
+
+  #create_button {
+    margin-left: 0.5em;
+    padding-left: 3em;
+    padding-right: 3em;
+  }
+
+  #invalid_code {
+    color: #dc3545;
+    margin-top: 0.5em;
   }
   
   body {
