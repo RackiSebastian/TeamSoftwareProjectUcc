@@ -123,5 +123,3 @@ class Authenticated(APIView):
 		return Response({'status': authenticated}, status = status.HTTP_200_OK)
 
 
-
-print("HEllo world")
