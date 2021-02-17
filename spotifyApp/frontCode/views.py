@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework import generics,status
-from .serializier import Serializer,createRoom
+from .serializier import Serializer,createRoom,UpdateRoom
 from .models import Room 
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -110,3 +110,31 @@ class LeaveRoom(APIView):
 
 
 
+class UpdateRoom(APIView):
+	serializer_class = UpdateRoom
+
+
+	def patch(self,request,format = None):
+
+		if not self.request.session.exists(self.request.session.session_key):
+			self.request.session.create()
+
+		serializer = self.serializer_class(data = request.data)
+
+		if serializer.is_valid():
+			can_pause = serializer.data.get('can_pause')
+			vote_to_skip = serializer.data.get('vote_to_skip')
+			code = serializer.data.get('code')
+
+			queryset = Room.objects.filter(code = code)
+
+			if not queryset.exists():
+				return Response({'Message:':'Room not there!'},status = status.HTTP_403_FORBIDDEN)
+
+			room.can_pause = can_pause
+			room.vote_to_skip = vote_to_skip
+			room.save(update_fields = ['can_pause','vote_to_skip'])
+
+			return Response(Serializer(room).data,status = status.HTTP_200_OK)
+		return Response({'Bad Request': 'Data is wrong!'},status = HTTP_400_BAD_REQUEST)
+		
