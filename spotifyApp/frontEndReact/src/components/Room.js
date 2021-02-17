@@ -13,7 +13,7 @@ class Room extends Component {
             image: null,
             name: null,
             duration_ms: null,
-            token: 'BQBMT30l2Obwtmko15LJiRevFfgn7S9-fV6-2RYJ_HGhKwol4Qzb0Nb3s-Y2R7tyWPGJyfEobTTXy7nIiPEyWtCbJoERumnX6y022Z5AWeY-r5bTikP39MGGB8MRZwsyCFoHwRH5O8Y1pCcZOdwQDLmtPHtJLh3yilNkvy0M7tO88VmqJA' // access token is set here
+            token: null // access_token is set here
         };
     }
 
@@ -47,6 +47,10 @@ class Room extends Component {
                     image={this.state.image}
                     name={this.state.name}
                     duration_ms={this.state.duration_ms}
+                />
+                <SpotifyPlayer
+                    token={this.state.token}
+                    syncExternalDevice={true}
                 />
                 <button className="btn" onClick={() => this.getPlayer(this.state.token)}>View Song</button>
             </main>
