@@ -3,6 +3,7 @@ import string
 import random  
 
 
+
 def unique_code():
 	length = 6 
 
@@ -19,6 +20,7 @@ class Room(models.Model):
 	can_pause = models.BooleanField(null = False,default = False)
 	vote_to_skip = models.IntegerField(null = False,default = 0) 
 	date_time = models.DateTimeField(auto_now_add =True)
+
 
 
 
