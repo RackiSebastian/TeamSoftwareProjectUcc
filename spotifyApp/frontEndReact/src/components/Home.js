@@ -11,7 +11,7 @@ class Home extends Component {
             redirectCreate: false,
             authenticated: false,
             display_name: null,
-            token: null // access token is set here
+            token: null // access_token is set here
         };
         this.authenticate = this.authenticate.bind(this);
     }
