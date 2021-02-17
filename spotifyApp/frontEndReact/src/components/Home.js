@@ -11,7 +11,7 @@ class Home extends Component {
             redirectCreate: false,
             authenticated: false,
             display_name: null,
-            token: null // access token is set here
+            token: 'BQDHBUmO_9RKvUVXNsSJ5MH0-0ilrseudop7xkENI5skVJFEThkApFbix9TurfpcIILioL09MlHL_IRwekE1zrnTmfuFTFumfIYQ2Ck32KrWrUfG8jUcJNodC7YT23TB7WmxKMMbWJ7mVp83HVdvLHZ6x9Rcl2BgaA' // access token is set here
         };
         this.authenticate = this.authenticate.bind(this);
     }
