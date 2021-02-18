@@ -19,7 +19,7 @@ class Authenticate(APIView):
 	'''
 
 	def get(self, request, format = None):
-		scope = 'user-read-playback-state user-modify-playback-state user-read-currently-playing'
+		scope = 'user-read-playback-state user-modify-playback-state user-read-currently-playing streaming user-read-private user-read-email'
 
 		get_req = Request('GET', 'https://accounts.spotify.com/authorize', params = {
 			'scope': scope,

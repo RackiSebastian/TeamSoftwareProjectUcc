@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import {Redirect} from "react-router-dom";
+import Cookies from "js-cookie";
 
 
 class Home extends Component {
@@ -43,10 +44,10 @@ class Home extends Component {
                 this.setState({
                     display_name: data.display_name
                 });
+                document.getElementById("heading_start").innerHTML = "Welcome to Spotify Groups, ";
+                document.getElementById("heading_end").innerHTML = "!";
             }
         });
-        document.getElementById("heading_start").innerHTML = "Welcome to Spotify Groups, ";
-        document.getElementById("heading_end").innerHTML = "!";
     }
   
     handleChange = ({target}) => {
@@ -75,17 +76,18 @@ class Home extends Component {
             } else {
                 this.setState({redirectJoin: true})
             }
+            console.log(this.state.token);
         } else {
             this.setState({redirectCreate: true})
         }
     }
-    
+
     render() {
         return (
         <main className="content" onLoad={() => this.getUsername(this.state.token)}>
             <header>
-                <h2 id="heading_start" className="text-center font-weight-bold pt-1">Welcome to Spotify Groups!</h2>
-                <h2 className="text-center font-weight-bold pt-1" dangerouslySetInnerHTML={{__html: this.state.display_name}}></h2>
+                <h2 id="heading_start" className="text-center">Welcome to Spotify Groups!</h2>
+                <h2 className="text-center" dangerouslySetInnerHTML={{__html: this.state.display_name}}></h2>
                 <h2 id="heading_end"></h2>
             </header>
             <div className="col text-center">
@@ -96,7 +98,7 @@ class Home extends Component {
                     <button id="join_button" className="btn" onClick={this.goToRoom}>Join Room</button>
                     <button id="create_button" className="btn" onClick={this.goToRoom}>Create Room</button>
                 </div>
-                <p className="" id="invalid_code"></p>
+                <p id="invalid_code"></p>
                 <input type="text" id="room_code" value={this.state.inputBox} onChange={this.handleChange} placeholder="Room code..." maxLength="4" />
             </div>
         </main>
