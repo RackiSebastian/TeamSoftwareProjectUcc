@@ -129,8 +129,12 @@ class UpdateRoom(APIView):
 			queryset = Room.objects.filter(code = code)
 
 			if not queryset.exists():
-				return Response({'Message:':'Room not there!'},status = status.HTTP_403_FORBIDDEN)
+				return Response({'Message:':'Room not there!'},status = status.HTTP_404_NOT_FOUND) #403 isn't if room isn't there
+			'''
 
+			'''
+			room = queryset[0]#Fixed no room variable
+			
 			room.can_pause = can_pause
 			room.vote_to_skip = vote_to_skip
 			room.save(update_fields = ['can_pause','vote_to_skip'])
