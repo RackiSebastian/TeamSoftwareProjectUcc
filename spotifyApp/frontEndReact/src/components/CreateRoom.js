@@ -4,13 +4,13 @@ import React,{Component} from "react";
 export default class CreateRoom extends Component{
 	static defaultProps = {
 		votesToSkip: 0,
-		guestCanPause: true: 
+		guestCanPause: true,
 		update:false,
 		roomCode: null,
-		updateCallBack: () => {},
+		updateCallBack: () => {}
 
-	}
-};
+	};
+
 
 constructor(props) {
 	super(props);
@@ -30,8 +30,8 @@ handleRoomButtonPressed(){
 			guestCanPause:this.state.guestCanPause,
 		})
 	};
-	fetch("spotifyAPI/frontCode/create-room",requestOptions){
+	fetch("spotifyAPI/frontCode/create-room",requestOptions)
 		.then((response) =>response.json())
-		.then((data) = > this.props.history.push("/"))
+		.then((data) => this.props.history.push("/"))
 	}
 }
