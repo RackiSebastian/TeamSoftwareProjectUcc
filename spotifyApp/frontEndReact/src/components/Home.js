@@ -7,7 +7,7 @@ class Home extends Component {
     constructor() {
         super();
         this.state = {
-            inputBox: null,
+            //inputBox: null,
             redirectJoin: false,
             redirectCreate: false,
             authenticated: false,
@@ -58,26 +58,26 @@ class Home extends Component {
 
     renderRedirectCreate = () => {
         if (this.state.redirectCreate) {
-            return <Redirect to='/Room' />
+            return <Redirect to='/create' />
         }
     }
 
     renderRedirectJoin = () => {
         if (this.state.redirectJoin) {
-            return <Redirect to='/Room/' />
+            return <Redirect to='/join' />
         }
     }
 
     goToRoom = (event) => {
-        this.authenticate();
         if(event.target.id == "join_button"){
-            if(document.getElementById("room_code").value.length !== 4){
-                document.getElementById("invalid_code").innerHTML = "Invalid Room Code";
-            } else {
+            //if(document.getElementById("room_code").value.length !== 4){
+            //    document.getElementById("invalid_code").innerHTML = "Invalid Room Code";
+            //} else {
                 this.setState({redirectJoin: true})
-            }
+            //}
             console.log(this.state.token);
         } else {
+            this.authenticate();
             this.setState({redirectCreate: true})
         }
     }
@@ -98,12 +98,13 @@ class Home extends Component {
                     <button id="join_button" className="btn" onClick={this.goToRoom}>Join Room</button>
                     <button id="create_button" className="btn" onClick={this.goToRoom}>Create Room</button>
                 </div>
-                <p id="invalid_code"></p>
-                <input type="text" id="room_code" value={this.state.inputBox} onChange={this.handleChange} placeholder="Room code..." maxLength="4" />
             </div>
         </main>
         );
     }
 }
+// Moved code input box to Join Room page
+//  <p id="invalid_code"></p>
+//  <input type="text" id="room_code" value={this.state.inputBox} onChange={this.handleChange} placeholder="Room code..." maxLength="4" />
 
 export default Home;
