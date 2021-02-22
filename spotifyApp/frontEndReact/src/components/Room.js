@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import Player from "./Player.js";
 import SpotifyPlayer from "react-spotify-web-playback";
 
 class Room extends Component {
@@ -7,12 +6,6 @@ class Room extends Component {
     constructor() {
         super();
         this.state = {
-            progress_ms: null,
-            track: null,
-            is_playing: null,
-            image: null,
-            name: null,
-            duration_ms: null,
             display_name: null,
             token: null // access_token is set here
         };
@@ -26,29 +19,6 @@ class Room extends Component {
         if (this.state.display_name === null) {
             this.getUsername(this.state.token);
         }
-        if (this.state.track === null) {
-            this.getPlayer(this.state.token);
-        }
-    }
-
-    getPlayer = (token) => {
-        $.ajax({
-            url: "https://api.spotify.com/v1/me/player",
-            type: "GET",
-            beforeSend: (xhr) => {
-                xhr.setRequestHeader("Authorization", "Bearer " + token);
-            },
-            success: (data) => {
-                this.setState({
-                    progress_ms: data.progress_ms,
-                    track: data.item.external_urls.href,
-                    is_playing: data.is_playing,
-                    image: data.item.album.images[0].url,
-                    name: data.item.name,
-                    duration_ms: data.item.duration_ms
-                });
-            }
-        });
     }
 
     getUsername = (token) => {
@@ -89,6 +59,12 @@ class Room extends Component {
         })
     }
 
+    testFunc = () => {
+        if(this.state.token !== null){
+            return <SpotifyPlayer syncExternalDevice={true} token={this.state.token} />
+        }
+    }
+
     render(){
         return (
             <main className="content">
@@ -102,10 +78,7 @@ class Room extends Component {
                     </div>
                 </div>
                 <footer>
-                    <SpotifyPlayer
-                        syncExternalDevice={true}
-                        token={this.state.token}
-                    />
+                    {this.testFunc()}
                 </footer>
             </main>
         );
