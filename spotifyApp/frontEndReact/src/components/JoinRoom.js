@@ -49,7 +49,7 @@ class JoinRoom extends Component {
 				<body>
                 <div>
                     <label>Room Code:</label>
-                    <input type="text" id="room_code" value={this.state.code} onChange={this.handleTextFieldChange} placeholder="Enter a Room Code" maxLength="4" />
+                    <input type="text" id="room_code" value={this.state.code} onChange={this.handleTextFieldChange} placeholder="Enter a Room Code" maxLength="6" />
 					<br></br>
                     <button onClick={this.handleJoinRoomButtonPressed}>Join Room</button>
                 </div>
