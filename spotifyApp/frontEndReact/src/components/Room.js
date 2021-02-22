@@ -19,8 +19,16 @@ class Room extends Component {
     }
 
     componentDidMount() {
-        this.getUsername(this.state.token);
-        this.getPlayer(this.state.token);
+        this.getToken();
+    }
+
+    componentDidUpdate() {
+        if (this.state.display_name === null) {
+            this.getUsername(this.state.token);
+        }
+        if (this.state.track === null) {
+            this.getPlayer(this.state.token);
+        }
     }
 
     getPlayer = (token) => {
@@ -71,6 +79,16 @@ class Room extends Component {
         });
     }
 
+    getToken = () => {
+        fetch("/spotify/getToken")
+            .then((response) => response.json())
+            .then((data) => {
+                this.setState(
+                    {token: data.token}
+                );
+        })
+    }
+
     render(){
         return (
             <main className="content">
@@ -82,21 +100,12 @@ class Room extends Component {
                     <div id="user-list" className="border border-success rounded">
                         <p dangerouslySetInnerHTML={{__html: this.state.display_name}}></p>
                     </div>
-                    <div id="player" className="border border-success rounded">
-                        <Player 
-                            is_playing={this.state.is_playing}
-                            progress_ms={this.progress_ms}
-                            image={this.state.image}
-                            name={this.state.name}
-                            duration_ms={this.state.duration_ms}
-                        />
-                    </div>
                 </div>
                 <footer>
-                    {/* <SpotifyPlayer
+                    <SpotifyPlayer
                         syncExternalDevice={true}
-                        token={null}
-                    /> */}
+                        token={this.state.token}
+                    />
                 </footer>
             </main>
         );

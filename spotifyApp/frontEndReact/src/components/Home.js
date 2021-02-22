@@ -17,6 +17,16 @@ class Home extends Component {
         this.authenticate = this.authenticate.bind(this);
     }
 
+    componentDidMount() {
+        this.getToken();
+    }
+
+    componentDidUpdate() {
+        if (this.state.display_name === null) {
+            this.getUsername(this.state.token);
+        }
+    }
+
     authenticate() {
         fetch("/spotify/authenticated")
             .then((response) => response.json())
@@ -82,9 +92,19 @@ class Home extends Component {
         }
     }
 
+    getToken = () => {
+        fetch("/spotify/getToken")
+            .then((response) => response.json())
+            .then((data) => {
+                this.setState(
+                    {token: data.token}
+                );
+        })
+    }
+
     render() {
         return (
-        <main className="content" onLoad={() => this.getUsername(this.state.token)}>
+        <main className="content">
             <header>
                 <h2 id="heading_start" className="text-center">Welcome to Spotify Groups!</h2>
                 <h2 className="text-center" dangerouslySetInnerHTML={{__html: this.state.display_name}}></h2>
