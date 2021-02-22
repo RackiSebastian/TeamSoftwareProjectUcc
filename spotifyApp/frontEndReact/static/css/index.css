@@ -37,6 +37,7 @@
     background-color: #28a745;
     height: 50px;
     font-family: "Fira Sans";
+    font-weight: bold;
     clear: both;
   }
 
@@ -66,6 +67,32 @@
     margin-top: 0.5em;
   }
   
+  #our-grid {
+    display: grid;
+    grid-column-gap: 5px;
+  }
+
+  #user-list {
+    height: 600px;
+    margin-left: 0.5em;
+    border-width: 3px !important;
+    grid-column-start: 1;
+    grid-column-end: 2;
+  }
+
+  #player {
+    border-width: 3px !important;
+    width: 600px;
+    height: 35%;
+    grid-column-start: 2;
+    grid-column-end: 9;
+  }
+  
+  p {
+    color: #ffffff;
+    text-align: center;
+  }
+
   body {
     margin: 0;
     padding: 0;

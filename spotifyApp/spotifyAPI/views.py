@@ -19,7 +19,7 @@ class Authenticate(APIView):
 	'''
 
 	def get(self, request, format = None):
-		scope = 'user-read-playback-state user-modify-playback-state user-read-currently-playing'
+		scope = 'web-playback user-read-birthdate user-read-playback-state user-modify-playback-state user-read-currently-playing streaming user-read-private user-read-email'
 
 		get_req = Request('GET', 'https://accounts.spotify.com/authorize', params = {
 			'scope': scope,
@@ -87,7 +87,6 @@ def callback(request, format = None):
 	# When this function runs redirect us back to our original application 
 	return redirect('frontend:')
 
-
 def is_authenticated(session_id):
 	token = get_token(session_id)
 
@@ -139,6 +138,14 @@ def pauseSong(session_id):
 
 def skipSong(session_id):
 	return execute_api_request(session_id,"player/next",post_ = True)
+
+class GetToken(APIView):
+	def get(self, request, format = None):
+		refreshToken(self.request.session.session_key)
+		token = get_token(self.request.session.session_key)
+		token = token.access_token
+		return Response({'token': token}, status = status.HTTP_200_OK)
+
 class Authenticated(APIView):
 	def get(self, request, format = None):
 		authenticated = is_authenticated(self.request.session.session_key)
