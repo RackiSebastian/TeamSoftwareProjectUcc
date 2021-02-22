@@ -1,0 +1,32 @@
+#info {
+    width: 40%;
+    color: #eee;
+    display: grid;
+    grid-column-gap: 0px;
+}
+
+#track_image {
+    width: 200px;
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+
+#basic_info {
+    width: 200px;
+    font-size: 20px;
+    grid-column-start: 2;
+    grid-column-end: 4;
+}
+
+#progress {
+    border: 1px solid #eee;
+    height: 6px;
+    border-radius: 3px;
+    overflow: hidden;
+    margin-top: 1.5em;
+}
+
+#progress_bar {
+    background-color: #eee;
+    height: 4px;
+}
