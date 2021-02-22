@@ -32,19 +32,6 @@ class Room extends Component {
                 this.setState({
                     display_name: data.display_name
                 });
-            },
-            error: () => {
-                var p_element = document.createElement("p");
-                var nickname = null;
-                while (nickname === null) {
-                    nickname = prompt("Enter name");
-                }
-                if (nickname) {
-                    var node = document.createTextNode(nickname);
-                    p_element.appendChild(node);
-                    var container = document.getElementById("user-list");
-                    container.appendChild(p_element);
-                }
             }
         });
     }
@@ -57,6 +44,19 @@ class Room extends Component {
                     {token: data.token}
                 );
         })
+        if (this.state.token === null) {
+            var p_element = document.createElement("p");
+            var nickname = null;
+            while (nickname === null) {
+                nickname = prompt("Enter name");
+            }
+            if (nickname) {
+                var node = document.createTextNode(nickname);
+                p_element.appendChild(node);
+                var container = document.getElementById("user-list");
+                container.appendChild(p_element);
+            }
+        }
     }
 
     testFunc = () => {
