@@ -43,25 +43,25 @@ class Room extends Component {
                 this.setState(
                     {token: data.token}
                 );
-        })
-        if (this.state.token === null) {
-            var p_element = document.createElement("p");
-            var nickname = null;
-            while (nickname === null) {
-                nickname = prompt("Enter name");
-            }
-            if (nickname) {
-                var node = document.createTextNode(nickname);
-                p_element.appendChild(node);
-                var container = document.getElementById("user-list");
-                container.appendChild(p_element);
-            }
-        }
+            })
+            .catch(data => {
+                var p_element = document.createElement("p");
+                var nickname = null;
+                while (nickname === null) {
+                    nickname = prompt("Enter name");
+                }
+                if (nickname) {
+                    var node = document.createTextNode(nickname);
+                    p_element.appendChild(node);
+                    var container = document.getElementById("user-list");
+                    container.appendChild(p_element);
+                }
+            })
     }
 
-    testFunc = () => {
+    renderPlayer = () => {
         if(this.state.token !== null){
-            return <SpotifyPlayer syncExternalDevice={true} token={this.state.token} />
+            return <SpotifyPlayer syncExternalDevice={true} token={this.state.token} autoPlay={true} magnifySliderOnHover={true} />
         }
     }
 
@@ -78,7 +78,7 @@ class Room extends Component {
                     </div>
                 </div>
                 <footer>
-                    {this.testFunc()}
+                    {this.renderPlayer()}
                 </footer>
             </main>
         );
