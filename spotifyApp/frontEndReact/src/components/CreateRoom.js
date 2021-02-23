@@ -60,9 +60,9 @@ class CreateRoom extends Component {
 					<h3>Guest Control</h3>
 					<form>
 						<label>Play/Pause: </label>
-						<input type="radio" value="true" onChange={this.handleGuestCanPauseChange}/>
+						<input type="radio" value="true" name="answer" onChange={this.handleGuestCanPauseChange}/>
 						<label>No Control: </label>
-						<input type="radio" value="false" onChange={this.handleGuestCanPauseChange}/>
+						<input type="radio" value="false" name="answer" onChange={this.handleGuestCanPauseChange}/>
 					</form>
 					<label>Votes to Skip:</label>
 					<input type="number" min="0" onChange={this.handleVoteChange}/>
