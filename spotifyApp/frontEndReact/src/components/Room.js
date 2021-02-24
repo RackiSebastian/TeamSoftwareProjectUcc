@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import Player from "./Player.js";
 import SpotifyPlayer from "react-spotify-web-playback";
 
 class Room extends Component {
@@ -7,52 +6,80 @@ class Room extends Component {
     constructor() {
         super();
         this.state = {
-            progress_ms: null,
-            track: null,
-            is_playing: null,
-            image: null,
-            name: null,
-            duration_ms: null,
+            display_name: null,
             token: null // access_token is set here
         };
     }
 
-    getPlayer = (token) => {
+    componentDidMount() {
+        this.getToken();
+    }
+
+    componentDidUpdate() {
+        if (this.state.display_name === null) {
+            this.getUsername(this.state.token);
+        }
+    }
+
+    getUsername = (token) => {
         $.ajax({
-            url: "https://api.spotify.com/v1/me/player",
+            url: "https://api.spotify.com/v1/me",
             type: "GET",
             beforeSend: (xhr) => {
                 xhr.setRequestHeader("Authorization", "Bearer " + token);
             },
             success: (data) => {
                 this.setState({
-                    progress_ms: data.progress_ms,
-                    track: data.item.external_urls.href,
-                    is_playing: data.is_playing,
-                    image: data.item.album.images[0].url,
-                    name: data.item.name,
-                    duration_ms: data.item.duration_ms
+                    display_name: data.display_name
                 });
             }
         });
     }
 
+    getToken = () => {
+        fetch("/spotify/getToken")
+            .then((response) => response.json())
+            .then((data) => {
+                this.setState(
+                    {token: data.token}
+                );
+            })
+            .catch(data => {
+                var p_element = document.createElement("p");
+                var nickname = null;
+                while (nickname === null) {
+                    nickname = prompt("Enter name");
+                }
+                if (nickname) {
+                    var node = document.createTextNode(nickname);
+                    p_element.appendChild(node);
+                    var container = document.getElementById("user-list");
+                    container.appendChild(p_element);
+                }
+            })
+    }
+
+    renderPlayer = () => {
+        if(this.state.token !== null){
+            return <SpotifyPlayer syncExternalDevice={true} token={this.state.token} autoPlay={true} magnifySliderOnHover={true} />
+        }
+    }
+
     render(){
         return (
-            <main className="content" onLoad={() => this.getPlayer(this.state.token)}>
-                <h1 className="text-success">TestRoom</h1>
-                <Player 
-                    is_playing={this.state.is_playing}
-                    progress_ms={this.progress_ms}
-                    image={this.state.image}
-                    name={this.state.name}
-                    duration_ms={this.state.duration_ms}
-                />
-                <SpotifyPlayer
-                    token={this.state.token}
-                    syncExternalDevice={true}
-                />
-                <button className="btn" onClick={() => this.getPlayer(this.state.token)}>View Song</button>
+            <main className="content">
+                <header className="mb-2">
+                    <h2 id="heading_start" className="text-center">Room Code: </h2>
+                    <h2 id="heading_end"></h2>
+                </header>
+                <div id="our-grid">
+                    <div id="user-list" className="border border-success rounded">
+                        <p dangerouslySetInnerHTML={{__html: this.state.display_name}}></p>
+                    </div>
+                </div>
+                <footer>
+                    {this.renderPlayer()}
+                </footer>
             </main>
         );
     }

@@ -9,4 +9,5 @@ urlpatterns = [
     path('play',PlaySong.as_view()),
     path('pause',PauseSong.as_view()),
     path('skip',SkipSong.as_view()),
+    path('getToken', GetToken.as_view()),
 ]
