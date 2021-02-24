@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import '../../static/css/joinroom.css';
 
 
 class JoinRoom extends Component {
@@ -40,19 +41,26 @@ class JoinRoom extends Component {
             });
     }
 
+    homePage = () => {
+        window.location.replace("/");
+    }
+
     render() {
         return (
 			<main>
 				<header>
-					<h2>This is the join room page.</h2>
+					<h2 id="join_heading">Join a Room</h2>
+                    <button id="return" className="btn" onClick={this.homePage}>Return</button>
 				</header>
 				<body>
-                <div>
-                    <label>Room Code:</label>
-                    <input type="text" id="room_code" value={this.state.code} onChange={this.handleTextFieldChange} placeholder="Enter a Room Code" maxLength="6" />
-					<br></br>
-                    <button onClick={this.handleJoinRoomButtonPressed}>Join Room</button>
-                </div>
+                    <div id="join" className="col text-center">
+                        <div id="input_content">
+                            <label>Room Code:</label>
+                            <input type="text" id="room_code" value={this.state.code} onChange={this.handleTextFieldChange} maxLength="6" />
+                            <br></br>
+                            <button id="join_button2" className="btn pl-4 pr-4 mt-2" onClick={this.handleJoinRoomButtonPressed}>Join Room</button>
+                        </div>
+                    </div>
 				</body>
 			</main>
 		);
