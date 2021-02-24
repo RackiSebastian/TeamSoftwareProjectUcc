@@ -61,19 +61,34 @@ class Room extends Component {
 
     renderPlayer = () => {
         if(this.state.token !== null){
-            return <SpotifyPlayer syncExternalDevice={true} token={this.state.token} autoPlay={true} magnifySliderOnHover={true} />
+            return <SpotifyPlayer syncExternalDevice={true} token={this.state.token} autoPlay={true} magnifySliderOnHover={true} styles={{
+                activeColor: '#fff',
+                bgColor: '#fff',
+                color: '#28a745',
+                loaderColor: '#fff',
+                sliderColor: '#1cb954',
+                sliderHandleColor: '#28a745',
+                trackArtistColor: '#ccc',
+                trackNameColor: '#fff',
+              }}/>
         }
+    }
+
+    homePage = () => {
+        window.location.replace("/");
     }
 
     render(){
         return (
             <main className="content">
                 <header className="mb-2">
-                    <h2 id="heading_start" className="text-center">Room Code: </h2>
-                    <h2 id="heading_end"></h2>
+                    <h2 id="code_heading_1" className="text-center">Room Code: </h2>
+                    <h2 id="code_heading_2"></h2>
+                    <button id="return" className="btn" onClick={this.homePage}>Return</button>
                 </header>
-                <div id="our-grid">
-                    <div id="user-list" className="border border-success rounded">
+                <div id="room_grid">
+                    <div id="user_list" className="border border-success rounded">
+                        <h4 id="user_heading">USER LIST</h4>
                         <p dangerouslySetInnerHTML={{__html: this.state.display_name}}></p>
                     </div>
                 </div>

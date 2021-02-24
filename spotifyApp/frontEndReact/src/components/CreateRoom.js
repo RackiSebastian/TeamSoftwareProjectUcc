@@ -1,5 +1,5 @@
 import React, {Component} from "react"; 
-
+import '../../static/css/createroom.css';
 
 class CreateRoom extends Component {
 	static defaultProps = {
@@ -50,24 +50,39 @@ class CreateRoom extends Component {
 			//to make it redirect to '/room/####' change to 'this.props.history.push("/room/" + data.code)'
 	}
 
+	homePage = () => {
+        window.location.replace("/");
+    }
+
 	render() {
 		return (
 			<main>
 				<header>
-					<h2>This is the create room page.</h2>
+					<h2 id="create_heading">Create a Room</h2>
+                    <button id="return" className="btn" onClick={this.homePage}>Return</button>
 				</header>
-				<body>
+				<body className="col text-center">
+					<div id="test">
 					<h3>Guest Control</h3>
-					<form>
-						<label>Play/Pause: </label>
-						<input type="radio" value="true" name="answer" onChange={this.handleGuestCanPauseChange}/>
-						<label>No Control: </label>
-						<input type="radio" value="false" name="answer" onChange={this.handleGuestCanPauseChange}/>
-					</form>
-					<label>Votes to Skip:</label>
-					<input type="number" min="0" onChange={this.handleVoteChange}/>
-					<br></br>
-					<button onClick={this.handleCreateRoomButtonPressed}>Create Room</button>
+					<div id="create" className="col text-center">
+						<div id="grid">
+						<div id="side_1">
+							<h4>Play/Pause:</h4>
+							<form>
+								<label>Yes</label>
+								<input type="radio" value="true" name="answer" onChange={this.handleGuestCanPauseChange}/>
+								<label className="ml-2">No</label>
+								<input type="radio" value="false" name="answer" onChange={this.handleGuestCanPauseChange}/>
+							</form>
+						</div>
+						<div id="side_2">
+							<h4>Votes to Skip:</h4>
+							<input type="number" min="0" onChange={this.handleVoteChange}/>
+						</div>
+						</div>
+						<button id="create_button2" className="btn pl-4 pr-4 mt-2" onClick={this.handleCreateRoomButtonPressed}>Create Room</button>
+					</div>
+					</div>
 				</body>
 			</main>
 		);
