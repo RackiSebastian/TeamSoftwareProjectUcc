@@ -4,7 +4,7 @@ module.exports = function(app) {
   app.use(
     '/frontCode',
     createProxyMiddleware({
-      target: 'http://localhost:3000',
+      target: 'http://localhost:8000',
       changeOrigin: true,
     })
   );
