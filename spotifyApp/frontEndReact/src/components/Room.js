@@ -7,6 +7,8 @@ class Room extends Component {
         super();
         this.state = {
             display_name: null,
+            can_pause: null,
+            vote_to_skip: null,
             token: null // access_token is set here
         };
     }
@@ -62,15 +64,15 @@ class Room extends Component {
     renderPlayer = () => {
         if(this.state.token !== null){
             return <SpotifyPlayer syncExternalDevice={true} token={this.state.token} autoPlay={true} magnifySliderOnHover={true} styles={{
-                activeColor: '#fff',
-                bgColor: '#fff',
+                activeColor: 'white',
+                bgColor: 'white',
                 color: '#28a745',
-                loaderColor: '#fff',
+                loaderColor: 'white',
                 sliderColor: '#1cb954',
                 sliderHandleColor: '#28a745',
-                trackArtistColor: '#ccc',
-                trackNameColor: '#fff',
-              }}/>
+                trackArtistColor: 'black',
+                trackNameColor: 'black',
+              }} uris="spotify:track:4uLU6hMCjMI75M1A2tKUQC" initialVolume={0.1} />
         }
     }
 
@@ -91,8 +93,16 @@ class Room extends Component {
                         <h4 id="user_heading">USER LIST</h4>
                         <p dangerouslySetInnerHTML={{__html: this.state.display_name}}></p>
                     </div>
+                    <div id="guide">
+                        Open Spotify and select a song to start playing it. You may need to select
+                        SPOTIFY WEB PLAYER in the bottom right corner of this page. For now a placeholder
+                        song to play.
+                    </div>
+                    <div id="chat" className="border border-success rounded">
+                        TEMP CONTAINER FOR CHAT
+                    </div>
                 </div>
-                <footer>
+                <footer className="footer">
                     {this.renderPlayer()}
                 </footer>
             </main>

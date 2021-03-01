@@ -65,11 +65,11 @@
   
   #room_grid {
     display: grid;
-    grid-template-columns: 40% 60%;
+    grid-template-columns: 16% 68% 16%;
     grid-template-rows: auto;
     grid-template-areas: "top top top"
-                        "middle-left middle middle-right"
-                        "bottom bottom bottom"
+                        "middle-left middle-center middle-right"
+                        "botom botom botom"
   }
 
   #user_list {
@@ -78,8 +78,27 @@
     margin-left: 0.5em;
     border-width: 3px !important;
     grid-area: middle-left;
-    width: 40%;
     background-color: #28a745;
+    overflow-y: auto;
+  }
+
+  #guide {
+    height: 540px;
+    margin-left: auto;
+    margin-right: auto;
+    grid-area: middle-center;
+    color: white;
+    width: 50%;
+  }
+
+  #chat {
+    height: 540px;
+    margin-bottom: 1em;
+    margin-right: 0.5em;
+    border-width: 3px !important;
+    grid-area: middle-right;
+    background-color: #28a745;
+    overflow-y: auto;
   }
 
   #user_heading {
@@ -120,4 +139,70 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     background-color: #000000;
+  }
+
+  @media screen and (min-width: 600px){
+    #chat, #guide, #user_list {
+      height: 160px;
+    }
+  }
+
+  @media screen and (min-width: 700px){
+    #chat, #guide, #user_list {
+      height: 207px;
+    }
+  }
+
+  @media screen and (min-width: 800px){
+    #chat, #guide, #user_list {
+      height: 270px;
+    }
+  }
+
+  @media screen and (min-width: 1000px){
+    #chat, #guide, #user_list {
+      height: 408px;
+    }
+  }
+
+  @media screen and (min-width: 1100px){
+    #chat, #guide, #user_list {
+      height: 480px;
+    }
+  }
+
+  @media screen and (min-width: 1200px){
+    #chat, #guide, #user_list {
+      height: 540px;
+    }
+  }
+
+  @media screen and (min-width: 1400px){
+    #chat, #guide, #user_list {
+      height: 615px;
+    }
+  }
+
+  @media screen and (min-width: 1500px){
+    #chat, #guide, #user_list {
+      height: 707px;
+    }
+  }
+
+  @media screen and (min-width: 1730px){
+    #chat, #guide, #user_list {
+      height: 764px;
+    }
+  }
+
+  @media screen and (min-width: 1930px){
+    #chat, #guide, #user_list {
+      height: 875px;
+    }
+  }
+
+  @media screen and (min-width: 1957px){
+    #chat, #guide, #user_list {
+      height: 1205px;
+    }
   }
