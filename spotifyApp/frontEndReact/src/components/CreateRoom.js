@@ -46,8 +46,7 @@ class CreateRoom extends Component {
 		};
 		fetch("/frontCode/createRoom", requestOptions)
 			.then((response) => response.json())
-			.then((data) => this.props.history.push("/room"));
-			//to make it redirect to '/room/####' change to 'this.props.history.push("/room/" + data.code)'
+			.then((data) => this.props.history.push("/room/" + data.code));
 	}
 
 	homePage = () => {
