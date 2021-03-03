@@ -7,6 +7,8 @@ class Room extends Component {
         super();
         this.state = {
             display_name: null,
+            can_pause: null,
+            vote_to_skip: null,
             token: null // access_token is set here
         };
     }
@@ -61,23 +63,46 @@ class Room extends Component {
 
     renderPlayer = () => {
         if(this.state.token !== null){
-            return <SpotifyPlayer syncExternalDevice={true} token={this.state.token} autoPlay={true} magnifySliderOnHover={true} />
+            return <SpotifyPlayer syncExternalDevice={true} token={this.state.token} autoPlay={true} magnifySliderOnHover={true} styles={{
+                activeColor: 'white',
+                bgColor: 'white',
+                color: '#28a745',
+                loaderColor: 'white',
+                sliderColor: '#1cb954',
+                sliderHandleColor: '#28a745',
+                trackArtistColor: 'black',
+                trackNameColor: 'black',
+              }} uris="spotify:track:4uLU6hMCjMI75M1A2tKUQC" initialVolume={0.1} />
         }
+    }
+
+    homePage = () => {
+        window.location.replace("/");
     }
 
     render(){
         return (
             <main className="content">
                 <header className="mb-2">
-                    <h2 id="heading_start" className="text-center">Room Code: </h2>
-                    <h2 id="heading_end"></h2>
+                    <h2 id="code_heading_1" className="text-center">Room Code: </h2>
+                    <h2 id="code_heading_2"></h2>
+                    <button id="return" className="btn" onClick={this.homePage}>Return</button>
                 </header>
-                <div id="our-grid">
-                    <div id="user-list" className="border border-success rounded">
+                <div id="room_grid">
+                    <div id="user_list" className="border border-success rounded">
+                        <h4 id="user_heading">USER LIST</h4>
                         <p dangerouslySetInnerHTML={{__html: this.state.display_name}}></p>
                     </div>
+                    <div id="guide">
+                        Open Spotify and select a song to start playing it. You may need to select
+                        SPOTIFY WEB PLAYER in the bottom right corner of this page. For now a placeholder
+                        song to play.
+                    </div>
+                    <div id="chat" className="border border-success rounded">
+                        TEMP CONTAINER FOR CHAT
+                    </div>
                 </div>
-                <footer>
+                <footer className="footer">
                     {this.renderPlayer()}
                 </footer>
             </main>
