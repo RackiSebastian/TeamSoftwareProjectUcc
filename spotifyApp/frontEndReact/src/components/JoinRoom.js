@@ -30,8 +30,7 @@ class JoinRoom extends Component {
         fetch("/frontCode/joinRoom", requestOptions)
             .then((response) => {
                 if (response.ok) {
-                    this.props.history.push(`/room`);
-                    //to make it redirect to '/room/####' change to 'this.props.history.push(`/room/${this.state.code}`)'
+                    this.props.history.push(`/room/${this.state.code}`);
                 } else {
                     this.setState({ error: "Room not found." });
                 }

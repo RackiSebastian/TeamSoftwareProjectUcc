@@ -2,15 +2,17 @@ import React, {Component} from "react";
 import SpotifyPlayer from "react-spotify-web-playback";
 
 class Room extends Component {
-
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             display_name: null,
-            can_pause: null,
-            vote_to_skip: null,
-            token: null // access_token is set here
+            can_pause: true,
+            vote_to_skip: 1,
+            token: null, // access_token is set here
+            is_host: false
         };
+        this.code = this.props.match.params.code; // to get the room code
+        this.getRoomDetails();
     }
 
     componentDidMount() {
@@ -61,6 +63,18 @@ class Room extends Component {
             })
     }
 
+    getRoomDetails() {
+        return fetch("/frontCode/getRoom" + "?code=" + this.code)
+          .then((response) => response.json())
+          .then((data) => {
+            this.setState({
+              votes_to_skip: data.votes_to_skip,
+              can_pause: data.can_pause,
+              is_host: data.is_host,
+            });
+          });
+      }
+
     renderPlayer = () => {
         if(this.state.token !== null){
             return <SpotifyPlayer syncExternalDevice={true} token={this.state.token} autoPlay={true} magnifySliderOnHover={true} styles={{
@@ -84,7 +98,7 @@ class Room extends Component {
         return (
             <main className="content">
                 <header className="mb-2">
-                    <h2 id="code_heading_1" className="text-center">Room Code: </h2>
+                    <h2 id="code_heading_1" className="text-center">Room Code: {this.code}</h2>
                     <h2 id="code_heading_2"></h2>
                     <button id="return" className="btn" onClick={this.homePage}>Return</button>
                 </header>

@@ -6,7 +6,6 @@ class Home extends Component {
     constructor() {
         super();
         this.state = {
-            //inputBox: null,
             redirectJoin: false,
             redirectCreate: false,
             authenticated: false,
@@ -79,11 +78,7 @@ class Home extends Component {
 
     goToRoom = (event) => {
         if(event.target.id == "join_button"){
-            //if(document.getElementById("room_code").value.length !== 4){
-            //    document.getElementById("invalid_code").innerHTML = "Invalid Room Code";
-            //} else {
-                this.setState({redirectJoin: true})
-            //}
+            this.setState({redirectJoin: true})
             console.log(this.state.token);
         } else {
             this.authenticate();
@@ -122,8 +117,5 @@ class Home extends Component {
         );
     }
 }
-// Moved code input box to Join Room page
-//  <p id="invalid_code"></p>
-//  <input type="text" id="room_code" value={this.state.inputBox} onChange={this.handleChange} placeholder="Room code..." maxLength="4" />
 
 export default Home;
