@@ -91,8 +91,26 @@
     width: 50%;
   }
 
-  #room_details_1 > p {
-    display: inline;
+  #guide > p {
+    border-bottom: 0.1em solid #28a745;
+    padding: 1em;
+  }
+
+  #sub_guide {
+    width: 100%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #votes_to_skip, #pause_button, #skip_button {
+    display: inline-block;
+  }
+
+  #pause_button, #skip_button {
+    margin-left: 1em;
+    padding-left: 3em;
+    padding-right: 3em;
   }
 
   #chat {
@@ -149,11 +167,21 @@
     #chat, #guide, #user_list {
       height: 160px;
     }
+
+    #pause_button, #skip_button {
+      padding-right: 0.9em;
+      padding-left: 0.9em;
+    }
   }
 
   @media screen and (min-width: 700px){
     #chat, #guide, #user_list {
       height: 207px;
+    }
+
+    #pause_button, #skip_button {
+      padding-right: 0.9em;
+      padding-left: 0.9em;
     }
   }
 
@@ -161,11 +189,21 @@
     #chat, #guide, #user_list {
       height: 270px;
     }
+
+    #pause_button, #skip_button {
+      padding-right: 0.9em;
+      padding-left: 0.9em;
+    }
   }
 
   @media screen and (min-width: 1000px){
     #chat, #guide, #user_list {
       height: 408px;
+    }
+
+    #pause_button, #skip_button {
+      padding-right: 2em;
+      padding-left: 2em;
     }
   }
 
@@ -179,11 +217,21 @@
     #chat, #guide, #user_list {
       height: 540px;
     }
+
+    #pause_button, #skip_button {
+      padding-right: 3em;
+      padding-left: 3em;
+    }
   }
 
   @media screen and (min-width: 1400px){
     #chat, #guide, #user_list {
       height: 615px;
+    }
+
+    #pause_button, #skip_button {
+      padding-right: 4em;
+      padding-left: 4em;
     }
   }
 
@@ -191,11 +239,31 @@
     #chat, #guide, #user_list {
       height: 707px;
     }
+
+    #pause_button, #skip_button, #join_button, #create_button {
+      padding-right: 3.5em;
+      padding-left: 3.5em;
+      font-size: 18px !important;
+    }
+
+    #guide > p, #sub_guide_2 > p, #user_heading, #user_list > p {
+      font-size: 18px !important;
+    }
   }
 
   @media screen and (min-width: 1730px){
     #chat, #guide, #user_list {
       height: 764px;
+    }
+
+    #pause_button, #skip_button, #join_button, #create_button {
+      padding-right: 3.5em;
+      padding-left: 3.5em;
+      font-size: 20px !important;
+    }
+
+    #guide > p, #sub_guide_2 > p, #user_heading, #user_list > p {
+      font-size: 20px !important;
     }
   }
 
@@ -203,10 +271,46 @@
     #chat, #guide, #user_list {
       height: 875px;
     }
+
+    #pause_button, #skip_button {
+      padding-right: 4em;
+      padding-left: 4em;
+      font-size: 22px !important;
+    }
+
+    #guide > p, #sub_guide_2 > p, #user_heading, #user_list > p {
+      font-size: 22px !important;
+    }
   }
 
   @media screen and (min-width: 1957px){
     #chat, #guide, #user_list {
       height: 1205px;
+    }
+
+    #pause_button, #skip_button {
+      padding-right: 4em;
+      padding-left: 4em;
+      font-size: 25px !important;
+    }
+
+    #guide > p, #sub_guide_2 > p, #user_heading, #user_list > p {
+      font-size: 25px !important;
+    }
+  }
+
+  @media screen and (min-width: 1957px){
+    #chat, #guide, #user_list {
+      height: 1205px;
+    }
+
+    #pause_button, #skip_button, #join_button, #create_button, #create_button2, #join_button2 {
+      padding-right: 2.5em;
+      padding-left: 2.5em;
+      font-size: 30px !important;
+    }
+
+    #guide > p, #sub_guide_2 > p, #user_heading, #user_list > p, #join, #create {
+      font-size: 30px !important;
     }
   }
