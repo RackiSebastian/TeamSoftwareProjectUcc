@@ -91,6 +91,10 @@
     width: 50%;
   }
 
+  #room_details_1 > p {
+    display: inline;
+  }
+
   #chat {
     height: 540px;
     margin-bottom: 1em;
@@ -139,6 +143,10 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     background-color: #000000;
+  }
+
+  footer {
+    display: none;
   }
 
   @media screen and (min-width: 600px){
