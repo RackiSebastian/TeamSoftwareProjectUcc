@@ -145,10 +145,6 @@
     background-color: #000000;
   }
 
-  footer {
-    display: none;
-  }
-
   @media screen and (min-width: 600px){
     #chat, #guide, #user_list {
       height: 160px;

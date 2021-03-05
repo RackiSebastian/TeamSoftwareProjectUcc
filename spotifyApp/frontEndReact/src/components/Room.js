@@ -91,6 +91,7 @@ class Room extends Component {
               can_pause: data.can_pause,
               is_host: data.is_host,
             });
+            this.handlePlayerDisplay();
           });
       }
 
@@ -127,6 +128,14 @@ class Room extends Component {
                 });
             }
         });
+    }
+
+    handlePlayerDisplay = () => {
+        if (this.state.is_host) {
+            document.getElementById("join_player").style.display = "none";
+        } else {
+            document.getElementById("footer").style.display = "none";
+        }
     }
 
     pauseJoinPlayer = (token) => {
@@ -236,8 +245,10 @@ class Room extends Component {
                         TEMP CONTAINER FOR CHAT
                     </div>
                 </div>
-                <JoinPlayer is_playing={this.state.is_playing} duration_ms={this.state.duration_ms} progress_ms={this.state.progress_ms} image={this.state.image} songName={this.state.song_name} artistName={this.state.artist} />
-                <footer className="footer">
+                <div id="join_player">
+                    <JoinPlayer is_playing={this.state.is_playing} duration_ms={this.state.duration_ms} progress_ms={this.state.progress_ms} image={this.state.image} songName={this.state.song_name} artistName={this.state.artist} />
+                </div>
+                <footer id="footer" className="footer">
                     {this.renderPlayer()}
                 </footer>
             </main>
