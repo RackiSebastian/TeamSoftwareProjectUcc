@@ -35,7 +35,7 @@ class CreateRoom(APIView):
 				room.can_pause = can_pause
 				room.vote_to_skip = vote_to_skip
 
-				room.save(update_fields = ['can_pause','vote_to_skip'])
+				room.save(update_fields = ['can_pause', 'vote_to_skip'])
 				self.request.session['code'] = room.code
 				return Response(Serializer(room).data, status = status.HTTP_200_OK)
 			else:
@@ -43,8 +43,8 @@ class CreateRoom(APIView):
 				room.save()
 				self.request.session['code'] = room.code
 				return Response(Serializer(room).data,status = status.HTTP_201_CREATED)
-
-			return Response({'Bad Format': 'Invalid values'}, status = status.HTTP_400_BAD_REQUEST)
+				
+		return Response({'Bad Format': 'Invalid values'}, status = status.HTTP_400_BAD_REQUEST)
 
 
 class JoinRoom(APIView):
@@ -68,7 +68,6 @@ class JoinRoom(APIView):
 
 
 class getRoom(APIView):
-
 	serializer_class = Serializer 
 	lookup = 'code'
 
@@ -80,10 +79,10 @@ class getRoom(APIView):
 			
 			if len(room) > 0 :
 				data = Serializer(room[0]).data
-				data['host'] = self.request.session.session_key == room[0].host 
+				data['is_host'] = self.request.session.session_key == room[0].host 
 				return Response(data, status = status.HTTP_200_OK)
 			return Response({'Room not found': 'Invalid Code'}, status = status.HTTP_404_NOT_FOUND)
-		return Response({'Bad Request':'Code not in request'}, status = status.HTTP_400_BAD_REQUEST)
+		return Response({'Bad Request': 'Code not in request'}, status = status.HTTP_400_BAD_REQUEST)
 
 
 class User(APIView):
