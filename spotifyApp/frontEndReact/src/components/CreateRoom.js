@@ -61,26 +61,26 @@ class CreateRoom extends Component {
                     <button id="return" className="btn" onClick={this.homePage}>Return</button>
 				</header>
 				<body className="col text-center">
-					<div id="test">
-					<h3>Guest Control</h3>
-					<div id="create" className="col text-center">
-						<div id="grid">
-						<div id="side_1">
-							<h4>Play/Pause:</h4>
-							<form>
-								<label>Yes</label>
-								<input type="radio" value="true" name="answer" onChange={this.handleGuestCanPauseChange}/>
-								<label className="ml-2">No</label>
-								<input type="radio" value="false" name="answer" onChange={this.handleGuestCanPauseChange}/>
-							</form>
+					<div id="guest_container">
+						<h3>Guest Control</h3>
+						<div id="create" className="col text-center">
+							<div id="grid">
+							<div id="side_1">
+								<h4>Play/Pause:</h4>
+								<form>
+									<label>Yes</label>
+									<input type="radio" value="true" name="answer" onChange={this.handleGuestCanPauseChange}/>
+									<label className="ml-2">No</label>
+									<input type="radio" value="false" name="answer" onChange={this.handleGuestCanPauseChange}/>
+								</form>
+							</div>
+							<div id="side_2">
+								<h4>Votes to Skip:</h4>
+								<input type="number" min="0" onChange={this.handleVoteChange}/>
+							</div>
+							</div>
+							<button id="create_button2" className="btn pl-4 pr-4 mt-2" onClick={this.handleCreateRoomButtonPressed}>Create Room</button>
 						</div>
-						<div id="side_2">
-							<h4>Votes to Skip:</h4>
-							<input type="number" min="0" onChange={this.handleVoteChange}/>
-						</div>
-						</div>
-						<button id="create_button2" className="btn pl-4 pr-4 mt-2" onClick={this.handleCreateRoomButtonPressed}>Create Room</button>
-					</div>
 					</div>
 				</body>
 			</main>

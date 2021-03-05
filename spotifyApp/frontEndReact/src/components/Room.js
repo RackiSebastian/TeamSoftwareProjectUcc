@@ -223,23 +223,16 @@ class Room extends Component {
                         <p dangerouslySetInnerHTML={{__html: this.state.display_name}}></p>
                     </div>
                     <div id="guide">
-                        <p>
+                        <p id="sub_guide_1">
                         Open Spotify and select a song to start playing it. You may need to select
                         SPOTIFY WEB PLAYER in the bottom right corner of this page. For now a placeholder
                         song will play.
                         </p>
-                        <div id="room_details_1" className="text-center">
-                            <p>Can pause: </p>
-                            <p dangerouslySetInnerHTML={{__html: this.state.can_pause}}></p>
+                        <div id="sub_guide_2">
+                            <p id="votes_to_skip">Votes to skip: {this.state.vote_to_skip} </p>
+                            <button id="pause_button" className="btn bg-success" onClick={() => this.pauseJoinPlayer(this.state.token)}>Pause</button>
+                            <button id="skip_button" className="btn bg-success" onClick={() => this.skipJoinPlayer(this.state.token)}>Skip</button>
                         </div>
-                        <div id="room_details_1" className="text-center">
-                            <p>Votes to skip: </p>
-                            <p dangerouslySetInnerHTML={{__html: this.state.vote_to_skip}}></p>
-                        </div>
-                    </div>
-                    <div id="joinplayer_buttons">
-                        <button id="pause_button" onClick={() => this.pauseJoinPlayer(this.state.token)}>Pause</button>
-                        <button id="skip_button" onClick={() => this.skipJoinPlayer(this.state.token)}>Skip</button>
                     </div>
                     <div id="chat" className="border border-success rounded">
                         TEMP CONTAINER FOR CHAT
