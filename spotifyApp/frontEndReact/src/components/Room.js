@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import reactRouterDom from "react-router-dom";
 import SpotifyPlayer from "react-spotify-web-playback";
 import JoinPlayer from "./JoinPlayer.js";
 
@@ -11,7 +12,8 @@ class Room extends Component {
             can_pause: true,
             vote_to_skip: 1,
             skip_count: 0,
-            session_key: null,
+            host_key: null,
+            host_token: null,
             is_host: false,
             is_playing: null,
             progress_ms: null,
@@ -28,12 +30,21 @@ class Room extends Component {
 
     componentDidMount() {
         this.getToken();
-        this.interval = setInterval(() => this.getFakePlayer(this.state.token), 500);
+        this.interval = setInterval(() => this.getFakePlayer(this.state.host_token), 500);
     }
 
     componentDidUpdate() {
         if (this.state.display_name === null) {
             this.getUsername(this.state.token);
+        }
+        if (this.state.is_playing) {
+            if (document.getElementById("pause_button").innerHTML == "Play") {
+                document.getElementById("pause_button").innerHTML = "Pause";
+            }
+        } else {
+            if (document.getElementById("pause_button").innerHTML == "Pause") {
+                document.getElementById("pause_button").innerHTML = "Play";
+            }
         }
     }
 
@@ -61,7 +72,7 @@ class Room extends Component {
             .then((response) => response.json())
             .then((data) => {
                 this.setState(
-                    {token: data.token, session_key: data.session_key}
+                    {token: data.token}
                 );
             })
             .catch(data => {
@@ -78,7 +89,25 @@ class Room extends Component {
                     this.setState({
                         nickname: nickname
                     })
+                    this.render();
                 }
+            })
+    }
+
+    getHostToken = () => {
+        const requestOptions = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                host_key: this.state.host_key,
+            })
+        };
+        fetch("/spotify/getHostToken", requestOptions)
+            .then((response) => response.json())
+            .then((data) => {
+                this.setState(
+                    {host_token: data.token}
+                );
             })
     }
 
@@ -90,14 +119,16 @@ class Room extends Component {
               votes_to_skip: data.votes_to_skip,
               can_pause: data.can_pause,
               is_host: data.is_host,
+              host_key: data.host,
             });
+            this.getHostToken();
             this.handlePlayerDisplay();
           });
       }
 
     renderPlayer = () => {
-        if (this.state.token !== null) {
-            return <SpotifyPlayer syncExternalDevice={true} token={this.state.token} autoPlay={true} magnifySliderOnHover={true} styles={{
+        if (this.state.host_token !== null) {
+            return <SpotifyPlayer syncExternalDevice={true} token={this.state.host_token} autoPlay={true} magnifySliderOnHover={true} styles={{
                 activeColor: 'white',
                 bgColor: 'white',
                 color: '#28a745',
@@ -134,7 +165,15 @@ class Room extends Component {
         if (this.state.is_host) {
             document.getElementById("join_player").style.display = "none";
         } else {
-            document.getElementById("footer").style.display = "none";
+            document.getElementById("host_player").style.display = "none";
+        }
+    }
+
+    handlePauseChange = () => {
+        if (this.state.is_playing) {
+            document.getElementById("pause_button").innerHTML = "Pause"
+        } else {
+            document.getElementById("pause_button").innerHTML = "Play"
         }
     }
 
@@ -148,7 +187,9 @@ class Room extends Component {
                         xhr.setRequestHeader("Authorization", "Bearer " + token);
                     },
                     success: (data) => {
-                        document.getElementById("pause_button").innerHTML = "Play"
+                        this.setState({
+                            is_playing: false
+                        })
                     }
                 });
             } else {
@@ -159,7 +200,9 @@ class Room extends Component {
                         xhr.setRequestHeader("Authorization", "Bearer " + token);
                     },
                     success: (data) => {
-                        document.getElementById("pause_button").innerHTML = "Pause"
+                        this.setState({
+                            is_playing: true
+                        })
                     }
                 });
             }
@@ -230,8 +273,8 @@ class Room extends Component {
                         </p>
                         <div id="sub_guide_2">
                             <p id="votes_to_skip">Votes to skip: {this.state.vote_to_skip} </p>
-                            <button id="pause_button" className="btn bg-success" onClick={() => this.pauseJoinPlayer(this.state.token)}>Pause</button>
-                            <button id="skip_button" className="btn bg-success" onClick={() => this.skipJoinPlayer(this.state.token)}>Skip</button>
+                            <button id="pause_button" className="btn bg-success" onClick={() => this.pauseJoinPlayer(this.state.host_token)}>Pause</button>
+                            <button id="skip_button" className="btn bg-success" onClick={() => this.skipJoinPlayer(this.state.host_token)}>Skip</button>
                         </div>
                     </div>
                     <div id="chat" className="border border-success rounded">
@@ -241,7 +284,7 @@ class Room extends Component {
                 <div id="join_player">
                     <JoinPlayer is_playing={this.state.is_playing} duration_ms={this.state.duration_ms} progress_ms={this.state.progress_ms} image={this.state.image} songName={this.state.song_name} artistName={this.state.artist} />
                 </div>
-                <footer id="footer" className="footer">
+                <footer id="host_player" className="footer">
                     {this.renderPlayer()}
                 </footer>
             </main>
