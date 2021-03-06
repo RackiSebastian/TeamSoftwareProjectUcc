@@ -1,4 +1,4 @@
-# Group 11 - Spotify Groups
+# Team 11 - Spotify Groups
 3rd Year Team Software Project - UCC
 
 ## Team Members
@@ -17,7 +17,7 @@ Spotify Groups is a website that allows people to create a shared chat room that
     - Install Node.js - https://nodejs.org/en/
 
 ## Instructions for Setup
-    Run the following sequence of commands.
+Run the following sequence of commands:
 ### To copy the files from GitHub:
     git clone https://github.com/RackiSebastian/TeamSoftwareProjectUcc.git
 ### To download the python modules needed to run the program:
@@ -26,17 +26,17 @@ Spotify Groups is a website that allows people to create a shared chat room that
 ### To run the server:
     cd spotifyApp
     python manage.py runserver 
-                ^
-                |
-                |
-            This will run the django web server 
-            which can be used to host the program.
-                                            |
-                                            |
-                                            v
-                                    http://127.0.0.1:8000
-                                            OR
-                                    http://localhost:8000
+                    ^
+                    |
+                    |
+                This will run the django web server 
+                which can be used to host the program.
+                                                |
+                                                |
+                                                v
+                                            http://127.0.0.1:8000
+                                                    OR
+                                            http://localhost:8000
 ### To download the node modules needed to run the program:
     (Open a second terminal and run the following commands)
     
