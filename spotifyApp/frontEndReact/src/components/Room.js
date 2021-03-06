@@ -116,7 +116,7 @@ class Room extends Component {
           .then((response) => response.json())
           .then((data) => {
             this.setState({
-              votes_to_skip: data.votes_to_skip,
+              vote_to_skip: data.vote_to_skip,
               can_pause: data.can_pause,
               is_host: data.is_host,
               host_key: data.host,
@@ -124,7 +124,7 @@ class Room extends Component {
             this.getHostToken();
             this.handlePlayerDisplay();
           });
-      }
+    }
 
     renderPlayer = () => {
         if (this.state.host_token !== null) {
