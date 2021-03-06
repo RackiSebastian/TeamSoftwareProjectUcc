@@ -14,7 +14,7 @@ Spotify Groups is a website that allows people to create a shared chat room that
     - Works on any Operating System.
     - Must have a Spotify Premium account to be able to play music.
     - Recommend getting Git Bash to run the program.
-    - [Install Node.js](https://nodejs.org/en/)
+    - Install Node.js - https://nodejs.org/en/
 
 ## Instructions for Setup
     Run the following sequence of commands.
@@ -26,7 +26,6 @@ Spotify Groups is a website that allows people to create a shared chat room that
 ### To run the server:
     cd spotifyApp
     python manage.py runserver 
-
                 ^
                 |
                 |
@@ -40,6 +39,7 @@ Spotify Groups is a website that allows people to create a shared chat room that
                                     http://localhost:8000
 ### To download the node modules needed to run the program:
     (Open a second terminal and run the following commands)
+    
     cd TeamSoftwareProjectUcc
     cd frontEndReact
     npm i
