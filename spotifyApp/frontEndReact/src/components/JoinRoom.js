@@ -37,6 +37,7 @@ class JoinRoom extends Component {
             })
             .catch((error) => {
                 console.log(error);
+                document.getElementById("invalid_code").innerHTML = "Room not found";
             });
     }
 
@@ -57,6 +58,7 @@ class JoinRoom extends Component {
                             <label>Room Code:</label>
                             <input type="text" id="room_code" value={this.state.code} onChange={this.handleTextFieldChange} maxLength="6" />
                             <br></br>
+                            <p id="invalid_code"></p>
                             <button id="join_button2" className="btn pl-4 pr-4 mt-2" onClick={this.handleJoinRoomButtonPressed}>Join Room</button>
                         </div>
                     </div>
