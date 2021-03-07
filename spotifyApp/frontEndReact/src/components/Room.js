@@ -212,7 +212,7 @@ class Room extends Component {
     }
 
     skipJoinPlayer = (token) => {
-        if (this.state.skip_count >= (this.state.vote_to_skip -1)) {
+        if (this.state.skip_count >= (this.state.vote_to_skip)) {
             $.ajax({
                 url: "https://api.spotify.com/v1/me/player/next",
                 type: "POST",
@@ -227,7 +227,7 @@ class Room extends Component {
                 }
             });
         } else {
-            if (this.state.skipUserList.indexOf(this.state.display_name) === -1) {
+            if ((this.state.skipUserList.indexOf(this.state.display_name) === -1) && (this.state.skipUserList.indexOf(this.state.nickname) === -1)) {
                 this.setState({
                     skip_count: this.state.skip_count + 1
                 })
@@ -243,13 +243,41 @@ class Room extends Component {
                         skipUserList
                     };
                 })
+                if (this.state.skip_count >= (this.state.vote_to_skip)) {
+                    this.skipJoinPlayer(this.state.host_token);
+                }
             } else {
                 alert("You've already voted to skip.")
             }
         }
     }
 
+    leaveRoom = () => {
+        if (this.state.is_host) {
+            const requestOptions = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    code: this.state.code,
+                })
+            };
+            fetch("/frontCode/leaveRoom", requestOptions)
+                .then((response) => {
+                    if (response.ok) {
+                        this.props.history.push(`/room/${this.state.code}`);
+                    } else {
+                        this.setState({ error: "Room not found." });
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                    document.getElementById("invalid_code").innerHTML = "Room not found";
+                });
+        }
+    }
+
     homePage = () => {
+        this.leaveRoom();
         window.location.replace("/");
     }
 
@@ -269,7 +297,7 @@ class Room extends Component {
                         <p id="sub_guide_1">
                         Open Spotify and select a song to start playing it. You may need to select
                         SPOTIFY WEB PLAYER in the bottom right corner of this page. For now a placeholder
-                        song will play.
+                        song will play. Clicking "Return" here will delete the room.
                         </p>
                         <div id="sub_guide_2">
                             <p id="votes_to_skip">Votes to skip: {this.state.vote_to_skip} </p>
