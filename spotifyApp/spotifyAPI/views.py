@@ -146,6 +146,19 @@ class GetToken(APIView):
 		token = token.access_token
 		return Response({'token': token}, status = status.HTTP_200_OK)
 
+class GetHostToken(APIView):
+	lookup = "host_key"
+
+	def post(self,request, format = None):
+		if not self.request.session.exists(self.request.session.session_key):
+			self.request.session.create() 
+
+		host_key = request.data.get(self.lookup)
+		refreshToken(host_key)
+		token = get_token(host_key)
+		token = token.access_token
+		return Response({'token': token}, status = status.HTTP_200_OK)
+
 class Authenticated(APIView):
 	def get(self, request, format = None):
 		authenticated = is_authenticated(self.request.session.session_key)
