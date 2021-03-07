@@ -113,17 +113,23 @@ class Room extends Component {
 
     getRoomDetails() {
         return fetch("/frontCode/getRoom" + "?code=" + this.code)
-          .then((response) => response.json())
-          .then((data) => {
-            this.setState({
-              vote_to_skip: data.vote_to_skip,
-              can_pause: data.can_pause,
-              is_host: data.is_host,
-              host_key: data.host,
+            .then((response) => {
+                if (!response.ok) {
+                    this.props.leaveRoomCallback();
+                    this.props.history.push("/");
+                }
+                return response.json();
+            })
+            .then((data) => {
+                this.setState({
+                    vote_to_skip: data.vote_to_skip,
+                    can_pause: data.can_pause,
+                    is_host: data.is_host,
+                    host_key: data.host,
+                });
+                this.getHostToken();
+                this.handlePlayerDisplay();
             });
-            this.getHostToken();
-            this.handlePlayerDisplay();
-          });
     }
 
     renderPlayer = () => {
