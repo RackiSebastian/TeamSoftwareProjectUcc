@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'a3lr*#t(+*x34+-_$m-72pt=guqpyocbg3(2%16j$$nao=r83l'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1','http://spotifys-rooms.herokuapp.com']
 
