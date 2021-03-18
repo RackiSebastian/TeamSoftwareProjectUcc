@@ -112,6 +112,7 @@ class Home extends Component {
                     <button id="join_button" className="btn" onClick={this.goToRoom}>Join Room</button>
                     <button id="create_button" className="btn" onClick={this.goToRoom}>Create Room</button>
                 </div>
+                <p className="mt-3">Once you are authenticated with Spotify, we can't reverse the process, you have to do it yourself.</p>
             </div>
         </main>
         );

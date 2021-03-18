@@ -33,6 +33,7 @@ class JoinRoom extends Component {
                     this.props.history.push(`/room/${this.state.code}`);
                 } else {
                     this.setState({ error: "Room not found." });
+                    document.getElementById("invalid_code").innerHTML = "Room not found";
                 }
             })
             .catch((error) => {
