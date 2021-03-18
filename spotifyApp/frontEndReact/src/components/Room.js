@@ -34,7 +34,7 @@ class Room extends Component {
     }
 
     componentDidUpdate() {
-        if (this.state.display_name === null) {
+        if ((this.state.display_name === null) && (this.state.nickname === null)) {
             this.getUsername(this.state.token);
         }
         if (this.state.is_playing) {
@@ -45,6 +45,16 @@ class Room extends Component {
             if (document.getElementById("pause_button").innerHTML == "Pause") {
                 document.getElementById("pause_button").innerHTML = "Play";
             }
+        }
+        if (this.state.skip_count >= this.state.vote_to_skip){
+            var skips = "Votes to skip: ";
+            skips = skips.concat(this.state.vote_to_skip);
+            document.getElementById("votes_to_skip").innerHTML = skips;
+            this.skipJoinPlayer(this.state.host_token);
+        } else {
+            var skips = "Votes to skip: ";
+            skips = skips.concat(this.state.vote_to_skip - this.state.skip_count);
+            document.getElementById("votes_to_skip").innerHTML = skips;
         }
     }
 
@@ -76,20 +86,26 @@ class Room extends Component {
                 );
             })
             .catch(data => {
-                var p_element = document.createElement("p");
-                var nickname = null;
-                while (nickname === null) {
-                    nickname = prompt("Enter name");
-                }
-                if (nickname) {
-                    var node = document.createTextNode(nickname);
-                    p_element.appendChild(node);
-                    var container = document.getElementById("user_list");
-                    container.appendChild(p_element);
-                    this.setState({
-                        nickname: nickname
-                    })
-                    this.render();
+                var window_name = "http://";
+                window_name = window_name.concat(window.location.host);
+                window_name = window_name.concat("/");
+                
+                if (window.location.href != window_name){
+                    var p_element = document.createElement("p");
+                    var nickname = "";
+                    while ((nickname == "") || (nickname.length > 20)) {
+                        nickname = prompt("Enter name (max 20 char.)");
+                    }
+                    if (nickname) {
+                        var node = document.createTextNode(nickname);
+                        p_element.appendChild(node);
+                        var container = document.getElementById("user_list");
+                        container.appendChild(p_element);
+                        this.setState({
+                            nickname: nickname
+                        })
+                        this.render();
+                    }
                 }
             })
     }
@@ -249,9 +265,6 @@ class Room extends Component {
                         skipUserList
                     };
                 })
-                if (this.state.skip_count >= (this.state.vote_to_skip)) {
-                    this.skipJoinPlayer(this.state.host_token);
-                }
             } else {
                 alert("You've already voted to skip.")
             }
@@ -282,6 +295,18 @@ class Room extends Component {
         }
     }
 
+    handleHideInstructions = () => {
+        var instructions = document.getElementById("sub_guide_1").innerHTML;
+        console.log(instructions);
+        if (instructions == "") {
+            document.getElementById("instructions_button").innerHTML = "Hide Instructions";
+            document.getElementById("sub_guide_1").innerHTML = "Open Spotify and select a song to start playing it. You may need to select SPOTIFY WEB PLAYER in the bottom right corner of this page. For now a placeholder song will play. If you are the host, clicking 'Return' here will delete the room.";
+        } else {
+            document.getElementById("instructions_button").innerHTML = "Show Instructions";
+            document.getElementById("sub_guide_1").innerHTML = "";
+        }
+    }
+
     homePage = () => {
         this.leaveRoom();
         window.location.replace("/");
@@ -300,10 +325,11 @@ class Room extends Component {
                         <p dangerouslySetInnerHTML={{__html: this.state.display_name}}></p>
                     </div>
                     <div id="guide">
+                        <button className="btn" id="instructions_button" onClick={this.handleHideInstructions}>Hide Instructions</button>
                         <p id="sub_guide_1">
                         Open Spotify and select a song to start playing it. You may need to select
                         SPOTIFY WEB PLAYER in the bottom right corner of this page. For now a placeholder
-                        song will play. Clicking "Return" here will delete the room.
+                        song will play. If you are the host, clicking 'Return' here will delete the room.
                         </p>
                         <div id="sub_guide_2">
                             <p id="votes_to_skip">Votes to skip: {this.state.vote_to_skip} </p>
