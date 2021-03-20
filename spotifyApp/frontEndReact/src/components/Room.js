@@ -4,6 +4,8 @@ import SpotifyPlayer from "react-spotify-web-playback";
 import JoinPlayer from "./JoinPlayer.js";
 import CreateRoom from "./CreateRoom.js";
 
+// Any funcitonality that is commented out was simply not working for this release
+
 class Room extends Component {
     constructor(props) {
         super(props);
@@ -24,6 +26,7 @@ class Room extends Component {
             artist: null,
             skipUserList: [],
             show_settings: false,
+            msg: null,
             token: null // access_token is set here
         };
         this.code = this.props.match.params.code; // to get the room code
@@ -203,7 +206,7 @@ class Room extends Component {
     }
 
     pauseJoinPlayer = (token) => {
-        if (this.state.can_pause){
+        if (this.state.can_pause || this.state.is_host){
             if (this.state.is_playing) {
                 $.ajax({
                     url: "https://api.spotify.com/v1/me/player/pause",
@@ -311,36 +314,91 @@ class Room extends Component {
     }
 
     
-    handleShowSettingsChange = (value) => {
-        this.setState({
-            show_settings: value
-        });
-      }
+    // handleShowSettingsChange = () => {
+    //     if(this.state.show_settings){
+    //         this.setState({
+    //             show_settings: false
+    //         })
+    //     } else {
+    //         this.setState({
+    //             show_settings: true
+    //         })
+    //     }
+    // }
     
-    renderSettings = () => {
-        return (
-            <main>
-                <div>
-                    <CreateRoom
-                        update={true}
-                        vote_to_skip={this.state.vote_to_skip}
-                        can_pause={this.state.can_pause}
-                        code={this.code}
-                        updateCallback={this.getRoomDetails}
-                    />
-                </div>
-                <div>
-                    <button id="close" className="btn" onClick={() => this.handleShowSettingsChange(false)}>Close Settings</button>
-                </div>
-            </main>
-        );
-    }
+    // renderSettings = () => {
+    //     if(this.state.show_settings){
+    //         return (
+    //             <div id="update_details" className="col text-center">
+    //                 <div>
+    //                     <h4>Play/Pause:</h4>
+    //                     <form>
+    //                         <label>Yes</label>
+    //                         <input type="radio" id="yes_button" value="true" />
+    //                         <label className="ml-2">No</label>
+    //                         <input type="radio" id="no_button" value="false" />
+    //                     </form>
+    //                 </div>
+    //                 <div>
+    //                     <h4>Votes to Skip:</h4>
+    //                     <input type="number" id="votes" min="0" max="999999" />
+    //                 </div>
+    //                 <button className="btn" onClick={this.handleUpdateRoomButtonPressed}>Update</button>
+    //             </div>
+    //         );
+    //     } else {
+    //         return (
+    //             <div></div>
+    //         )
+    //     }
+    // }
 
-    renderSettingsButton = () => {
-        return (
-            <button id="settings_button" onClick={() => this.handleShowSettingsChange(true)}>Settings</button>
-        );
-    }
+    // handleUpdateRoomButtonPressed = () => {
+    //     var votes = document.getElementById("votes").value;
+    //     var pausePlay = "not set";
+
+    //     if (votes != this.state.vote_to_skip) {
+    //         if((votes <= 999999) && (0 <= votes)){
+    //             this.setState({
+    //                 vote_to_skip: votes,
+    //                 show_settings: false
+    //             })
+    //         } else {
+    //             alert("Invalid number of votes. Select a number between 0 and 999,999.");
+    //         }
+    //     }
+    //     this.handleUpdateRoom();
+    // }
+
+    // handleUpdateRoom = () => {
+    //     console.log(this.code);
+	// 	const requestOptions = {
+	// 		method: "PATCH",
+	// 		headers: { "Content-Type": "application/json" },
+	// 		body: JSON.stringify({
+	// 			vote_to_skip: this.state.vote_to_skip,
+	// 			can_pause: this.state.can_pause,
+	// 			code: this.code
+	// 		}),
+	// 	};
+	// 	fetch("/frontCode/updateRoom", requestOptions).then((response) => {
+	// 		if (response.ok) {
+	// 			this.setState({
+	// 				msg: "Room Updated!"
+	// 			});
+	// 		} else {
+	// 			this.setState({
+	// 				msg: "Error while updating room."
+	// 			});
+	// 		}
+	// 	});
+	// }
+
+    // renderSettingsButton = () => {
+    //     return (
+    //         <button id="settings_button" className="btn" onClick={this.handleShowSettingsChange}>Settings</button>
+    //     );
+    // }
 
     homePage = () => {
         this.leaveRoom();
@@ -348,9 +406,6 @@ class Room extends Component {
     }
 
     render(){
-        if (this.state.show_settings) {
-            return this.renderSettings()
-        }
         return (
             <main className="content">
                 <header className="mb-2">
@@ -374,9 +429,10 @@ class Room extends Component {
                             <button id="pause_button" className="btn bg-success" onClick={() => this.pauseJoinPlayer(this.state.host_token)}>Pause</button>
                             <button id="skip_button" className="btn bg-success" onClick={() => this.skipJoinPlayer(this.state.host_token)}>Skip</button>
                         </div>
-                        <div>
+                        {/* <div>
                             {this.state.is_host ? this.renderSettingsButton() : null}
                         </div>
+                        {this.renderSettings()} */}
                     </div>
                     <div id="chat" className="border rounded">
                         TEMP CONTAINER FOR CHAT
