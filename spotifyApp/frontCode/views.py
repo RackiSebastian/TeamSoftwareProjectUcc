@@ -126,16 +126,17 @@ class UpdateRoom(APIView):
 			queryset = Room.objects.filter(code = code)
 
 			if not queryset.exists():
-				return Response({'Message:':'Room not there!'}, status = status.HTTP_404_NOT_FOUND) #403 isn't if room isn't there
-			'''
-
-			'''
-			room = queryset[0]#Fixed no room variable
+				return Response({'Message:': 'Room not there!'}, status = status.HTTP_404_NOT_FOUND) #403 isn't if room isn't there
+			
+			room = queryset[0] #Fixed no room variable
+			user_id = self.request.session.session_key
+			if room.host != user_id:
+				return Response({'Message': 'You are not the host!'}, status = status.HTTP_403_FORBIDDEN)
 			
 			room.can_pause = can_pause
 			room.vote_to_skip = vote_to_skip
 			room.save(update_fields = ['can_pause', 'vote_to_skip'])
 			return Response(Serializer(room).data, status = status.HTTP_200_OK)
 		
-		return Response({'Bad Request': 'Data is wrong!'}, status = HTTP_400_BAD_REQUEST)
+		return Response({'Bad Request': 'Data is wrong!'}, status = status.HTTP_400_BAD_REQUEST)
 		
