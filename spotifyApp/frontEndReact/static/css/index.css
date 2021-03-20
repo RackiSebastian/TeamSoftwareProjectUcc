@@ -103,6 +103,10 @@
     margin-right: auto;
   }
 
+  #update_details {
+    width: 1000px;
+  }
+
   #votes_to_skip, #pause_button, #skip_button {
     display: inline-block;
   }
@@ -112,6 +116,13 @@
     padding-left: 3em;
     padding-right: 3em;
   }
+
+  /* #update_details {
+    border: #28a745 solid 0.5em;
+    border-radius: 1em;
+    background-color: #28a745;
+    margin-top: 2em;
+  } */
 
   #chat {
     height: 540px;
@@ -148,7 +159,7 @@
     font-family: "Fira Sans";
     font-weight: bold;
   }
-  
+
   p {
     color: #ffffff;
     text-align: center;
