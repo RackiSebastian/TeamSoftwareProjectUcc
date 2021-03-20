@@ -344,7 +344,7 @@ class Room extends Component {
                 <div id="join_player">
                     <JoinPlayer is_playing={this.state.is_playing} duration_ms={this.state.duration_ms} progress_ms={this.state.progress_ms} image={this.state.image} songName={this.state.song_name} artistName={this.state.artist} />
                 </div>
-                <footer id="host_player" className="footer">
+                <footer id="host_player" className="footer fixed-bottom">
                     {this.renderPlayer()}
                 </footer>
             </main>
