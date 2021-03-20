@@ -57,6 +57,12 @@ class CreateRoom extends Component {
 		}
 	}
 
+	renderCreateButton = () => {
+		return(
+			<button id="create_button2" className="btn pl-4 pr-4 mt-2" onClick={this.handleCreateRoomButtonPressed}>Create Room</button>
+		);
+	}
+
 	handleUpdateRoomButtonPressed() {
 		console.log(this.props.update)
 		const requestOptions = {
@@ -102,6 +108,16 @@ class CreateRoom extends Component {
 		}
 	}
 
+	displayInstructions = () => {
+		return(
+			<p className="mt-3">
+				Open the Spotify Player before creating your room,
+				otherwise you may run into issues due to the nature
+				of the SDK.
+			</p>
+		)
+	}
+
 	homePage = () => {
         window.location.replace("/");
     }
@@ -137,11 +153,7 @@ class CreateRoom extends Component {
 							{this.props.update ? this.renderUpdateButton() : this.renderCreateButton()}
 							{this.props.update ? this.displayNotification() : null}
 						</div>
-						<p className="mt-3">
-							Open the Spotify Player before creating your room,
-							otherwise you may run into issues due to the nature
-							of the SDK.
-						</p>
+						{this.props.update ? null : this.displayInstructions()}
 					</div>
 				</body>
 			</main>
