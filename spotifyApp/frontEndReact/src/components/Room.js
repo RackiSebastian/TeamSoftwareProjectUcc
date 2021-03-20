@@ -337,7 +337,7 @@ class Room extends Component {
                             <button id="skip_button" className="btn bg-success" onClick={() => this.skipJoinPlayer(this.state.host_token)}>Skip</button>
                         </div>
                     </div>
-                    <div id="chat" className="border border-success rounded">
+                    <div id="chat" className="border rounded">
                         TEMP CONTAINER FOR CHAT
                     </div>
                 </div>
