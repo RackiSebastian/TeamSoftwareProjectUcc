@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import reactRouterDom from "react-router-dom";
 import SpotifyPlayer from "react-spotify-web-playback";
 import JoinPlayer from "./JoinPlayer.js";
+import CreateRoom from "./CreateRoom.js";
 
 class Room extends Component {
     constructor(props) {
@@ -22,9 +23,11 @@ class Room extends Component {
             song_name: null,
             artist: null,
             skipUserList: [],
+            show_settings: false,
             token: null // access_token is set here
         };
         this.code = this.props.match.params.code; // to get the room code
+        this.getRoomDetails = this.getRoomDetails.bind(this);
         this.getRoomDetails();
     }
 
@@ -307,12 +310,47 @@ class Room extends Component {
         }
     }
 
+    
+    handleShowSettingsChange = (value) => {
+        this.setState({
+            show_settings: value
+        });
+      }
+    
+    renderSettings = () => {
+        return (
+            <main>
+                <div>
+                    <CreateRoom
+                        update={true}
+                        vote_to_skip={this.state.vote_to_skip}
+                        can_pause={this.state.can_pause}
+                        code={this.code}
+                        updateCallback={this.getRoomDetails}
+                    />
+                </div>
+                <div>
+                    <button id="close" className="btn" onClick={() => this.handleShowSettingsChange(false)}>Close Settings</button>
+                </div>
+            </main>
+        );
+    }
+
+    renderSettingsButton = () => {
+        return (
+            <button id="settings_button" onClick={() => this.handleShowSettingsChange(true)}>Settings</button>
+        );
+    }
+
     homePage = () => {
         this.leaveRoom();
         window.location.replace("/");
     }
 
     render(){
+        if (this.state.show_settings) {
+            return this.renderSettings()
+        }
         return (
             <main className="content">
                 <header className="mb-2">
@@ -327,14 +365,17 @@ class Room extends Component {
                     <div id="guide">
                         <button className="btn" id="instructions_button" onClick={this.handleHideInstructions}>Hide Instructions</button>
                         <p id="sub_guide_1">
-                        Open Spotify and select a song to start playing it. You may need to select
-                        SPOTIFY WEB PLAYER in the bottom right corner of this page. For now a placeholder
-                        song will play. If you are the host, clicking 'Return' here will delete the room.
+                            Open Spotify and select a song to start playing it. You may need to select
+                            SPOTIFY WEB PLAYER in the bottom right corner of this page. For now a placeholder
+                            song will play. If you are the host, clicking 'Return' here will delete the room.
                         </p>
                         <div id="sub_guide_2">
                             <p id="votes_to_skip">Votes to skip: {this.state.vote_to_skip} </p>
                             <button id="pause_button" className="btn bg-success" onClick={() => this.pauseJoinPlayer(this.state.host_token)}>Pause</button>
                             <button id="skip_button" className="btn bg-success" onClick={() => this.skipJoinPlayer(this.state.host_token)}>Skip</button>
+                        </div>
+                        <div>
+                            {this.state.is_host ? this.renderSettingsButton() : null}
                         </div>
                     </div>
                     <div id="chat" className="border rounded">
