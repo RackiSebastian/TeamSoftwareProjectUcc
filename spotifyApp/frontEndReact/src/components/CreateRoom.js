@@ -24,21 +24,24 @@ class CreateRoom extends Component {
 	}
 	
 	componentDidMount() {
-		document.getElementById("votes").defaultValue = "1";
+		document.getElementById("votes").defaultValue = "1"; // shows the user what the default room values are
 	}
 
+	// checks for input box value change
 	handleVoteChange(e) {
 		this.setState({
 		  	vote_to_skip: e.target.value,
 		});
 	}
 	
+	// checks for radio button value change
 	handleGuestCanPauseChange(e) {
 		this.setState({
 			can_pause: e.target.value === "true" ? true : false,
 		});
 	}
 
+	// creates room in database with input or default information
 	handleCreateRoomButtonPressed() {
 		if((this.state.vote_to_skip <= 999999) && (0 <= this.state.vote_to_skip)){
 			const requestOptions = {
@@ -57,6 +60,7 @@ class CreateRoom extends Component {
 		}
 	}
 
+	// renders create button in component
 	renderCreateButton = () => {
 		return(
 			<button id="create_button2" className="btn pl-4 pr-4 mt-2" onClick={this.handleCreateRoomButtonPressed}>Create Room</button>
@@ -94,12 +98,14 @@ class CreateRoom extends Component {
 		);
 	}
 
+	// renders button to go to Home page in this component
 	renderLeaveButton = () => {
 		return (
 			<button id="return" className="btn" onClick={this.homePage}>Return</button>
 		)
 	}
 
+	// displays relevant notifaction if an error occurs
 	displayNotification = () => {
 		if (this.state.msg != "") {
 			return (
@@ -108,6 +114,7 @@ class CreateRoom extends Component {
 		}
 	}
 
+	// renders instructions about the Spotify Player SDK
 	displayInstructions = () => {
 		return(
 			<p className="mt-3">
@@ -118,6 +125,7 @@ class CreateRoom extends Component {
 		)
 	}
 
+	// changes url to Home page
 	homePage = () => {
         window.location.replace("/");
     }
@@ -126,6 +134,7 @@ class CreateRoom extends Component {
 		const heading = this.props.update ? "Update Room" : "Create a Room";
 
 		return (
+			// some elements here are only rendered if you are on the CreateRoom page (this.props.update ? ...)
 			<main>
 				<header>
 					<h2 id="create_heading">Create a Room</h2>

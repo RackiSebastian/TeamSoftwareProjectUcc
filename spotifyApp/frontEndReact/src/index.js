@@ -7,7 +7,7 @@ import '../static/css/index.css';
 import {BrowserRouter} from 'react-router-dom';
 
 ReactDOM.render(
-    <BrowserRouter>
+    <BrowserRouter> {/* BrowserRouter allows for content to be dynamically reloaded by wrapping the entire DOM in it */}
         <React.StrictMode>
             <App />
         </React.StrictMode>
