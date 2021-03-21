@@ -63,11 +63,11 @@
         ^
         |
         |
-        This will run a localhost server that you can run by 
-                                                            |
-                                                            |
-                                                            |
-                                                            v
-                                                            127.0.0.1:8000
-                                                                else:
-                                                                    localhost:8000
+        This will run a localhost server that you can run by going on the internet and typing 
+                                                                                        |
+                                                                                        |
+                                                                                        |
+                                                                                        v
+                                                                                        127.0.0.1:8000
+                                                                                            else:
+                                                                                                localhost:8000
