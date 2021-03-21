@@ -1,5 +1,3 @@
- // frontend/src/App.js
-
 import React, {Component} from "react";
 import Home from "./Home";
 import Room from "./Room";
@@ -34,12 +32,13 @@ class App extends Component {
     
   render() {
     return (
+      // the Routes below allow for the content to be changed to the respective file rather than moving the user around
       <div className="spotify">
-        <Route exact path="/" component={Home} />
+        <Route exact path="/" component={Home} /> {/* starts page content as Home.js */}
         <Route exact path="/join" component={JoinRoom} />
         <Route exact path="/create" component={CreateRoom} />
         <Route exact path="/room/:code" render={(props) => {
-              return <Room {...props} leaveRoomCallback={this.clearRoom} />;
+              return <Room {...props} leaveRoomCallback={this.clearRoom} />; // prevents users from entering bad codes in the url
         }} />
       </div>
     );

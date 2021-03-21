@@ -1,8 +1,11 @@
 import React from "react";
 import "../../static/css/joinplayer.css";
 
+// this is our custom player to be displayed to users who are not the host of a room
+// it accepts the necessary data as attributes when it is called as a JSX element in another component
 const JoinPlayer = props => {
       
+    // set progress bar max width
     const progressBarStyles = {
         width: (props.progress_ms * 100 / props.duration_ms) + '%'
     };

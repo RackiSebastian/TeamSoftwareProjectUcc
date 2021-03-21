@@ -15,16 +15,19 @@ class Home extends Component {
         this.authenticate = this.authenticate.bind(this);
     }
 
+    // if the user is already authenticated, we get their access token to display their name
     componentDidMount() {
         this.getToken();
     }
 
+    // if we manage to get the token, display the name
     componentDidUpdate() {
         if (this.state.display_name === null) {
             this.getUsername(this.state.token);
         }
     }
 
+    // redirect to Spotify page for authentication, and then return to website once finished
     authenticate() {
         fetch("/spotify/authenticated")
             .then((response) => response.json())
@@ -41,6 +44,7 @@ class Home extends Component {
         });
     }
 
+    // get user data for display name
     getUsername = (token) => {
         $.ajax({
             url: "https://api.spotify.com/v1/me",
@@ -57,25 +61,22 @@ class Home extends Component {
             }
         });
     }
-  
-    handleChange = ({target}) => {
-        this.setState({
-            [target.name]: target.value
-        });
-    }
 
+    // change contents of page if user clicks Create button
     renderRedirectCreate = () => {
         if (this.state.redirectCreate) {
             return <Redirect to='/create' />
         }
     }
 
+    // change contents of page if user clicks Join button
     renderRedirectJoin = () => {
         if (this.state.redirectJoin) {
             return <Redirect to='/join' />
         }
     }
 
+    // decide which Redirect to render depending on button press
     goToRoom = (event) => {
         if(event.target.id == "join_button"){
             this.setState({redirectJoin: true})
@@ -86,6 +87,7 @@ class Home extends Component {
         }
     }
 
+    // get the current access_token for the user
     getToken = () => {
         fetch("/spotify/getToken")
             .then((response) => response.json())

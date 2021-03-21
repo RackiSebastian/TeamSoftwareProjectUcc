@@ -13,12 +13,15 @@ class JoinRoom extends Component {
         this.handleJoinRoomButtonPressed = this.handleJoinRoomButtonPressed.bind(this);
     }
 
+    // checks for input box value change
     handleTextFieldChange(e) {
         this.setState({
             code: e.target.value,
         });
     }
 
+    // checks to make sure the room exists for the provided room code
+    // if it does, redirect user to that room
     handleJoinRoomButtonPressed() {
         const requestOptions = {
             method: "POST",
@@ -42,6 +45,7 @@ class JoinRoom extends Component {
             });
     }
 
+    // changes url to Home page
     homePage = () => {
         window.location.replace("/");
     }
