@@ -1,9 +1,8 @@
 # TeamSoftwareProjectUcc Group 11
-3rd year team software project
 
 This GitHub repo began as a Team Software Project in the third year CS3305 Module of the Computer Science Degree course (2020/21 term) at the School of Computer Science and Information Technology (CSIT) at University College Cork (UCC), Ireland.  The lecturer was Dr. Jason Quinlan.
 
-UCC: https://www.ucc.ie/en/
+UCC: https://www.ucc.ie/en/  
 CSIT: https://www.ucc.ie/en/compsci/
 
 ## Team 
@@ -14,7 +13,7 @@ CSIT: https://www.ucc.ie/en/compsci/
     
 ## Installations
 
-    Makesure you have python installed - Python.org 
+    Make sure you have python installed - Python.org 
     Make sure you have pip installed - (By downloadin python 3.5 or higher its automatically there) 
     Make sure you have npm installed - https://www.npmjs.com/get-npm
     Make sure you have virtualenv installed - pip install virtualenv
