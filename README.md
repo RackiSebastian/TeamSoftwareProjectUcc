@@ -5,14 +5,51 @@
     Sebastian Racki: 118459412 
     Cathal Donovan O'Neill: 118495052
     Naina Nair : 118100268
-    Allan Barry: 117343896 
+    Allan Barry: 117343896
+    
+## Installations
 
-## Download Dependecies 
+    Makesure you have python installed - Python.org 
+    Make sure you have pip installed - (By downloadin python 3.5 or higher its automatically there) 
+    Make sure you have npm installed - https://www.npmjs.com/get-npm
+    Make sure you have virtualenv installed - pip install virtualenv
+## Download or just checkout the link! 
+    spotifyy-rooms.herokuapp.com
+    
+    else:
+    
+        Follow instructions below to install 
 
-    cd ../TeamSoftwareProejctUCC
-    pip install requirements.txt 
+## Clone the project 
+    
+    cd <any_directory> 
+    git clone https://github.com/RackiSebastian/TeamSoftwareProjectUcc.git
+    
+    This will create a folder called TeamSoftwareprojectucc 
 
-    (This will install all the dependencies that you need to run the program)
+## Download django dependencies 
+    
+    1. Create a virtual enviorenment 
+        -> cd TeamSoftwareprojectucc 
+        -> type virtualenv env
+        -> Creates a folder called env so cd into it 
+        -> Type source Scripts/activate 
+    2. cd back to TeamSoftwareprojectucc 
+        -> type pip install -r requirements.txt 
+ 
+## Download Node and React Dependencies 
+    1. cd TeamSoftwareProjectUcc/Spotifyapp/frontEndReact
+    2. npm i
+    3. Thats basically it you got all the dependencies that you need 
+
+## Create a spotify developers account 
+    1. go to https://developer.spotify.com/dashboard/
+    2. Log in wherever you want 
+    3. Create an App call it whatever you want 
+    4. Go into settings on the right hand side 
+    5. Scroll down to 'Redirect uris' and add '127.0.0.1:8000/spotify/redirect
+    6. Update the client id and secret in the python program in the file at TeamSoftwareprojectucc/spotifyapp/spotifyAPI/client_secrets.py 
+    7. MAKE SURE CLIENT SECRETS AND ID ARE CHANGED BECAUSE IT WILL NOT WORK 
 
 ## Run the program...
 
@@ -26,15 +63,11 @@
         ^
         |
         |
-        This will run a localhost server that you can run by 
-                                                            |
-                                                            |
-                                                            |
-                                                            v
-                                                            127.0.0.1:8000
-                                                                else:
-                                                                    localhost:8000
-
-## npm install
-
-    Still
+        This will run a localhost server that you can run by going on the internet and typing 
+                                                                                        |
+                                                                                        |
+                                                                                        |
+                                                                                        v
+                                                                                        127.0.0.1:8000
+                                                                                            else:
+                                                                                                localhost:8000
