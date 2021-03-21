@@ -45,8 +45,11 @@
 ## Create a spotify developers account 
     1. go to https://developer.spotify.com/dashboard/
     2. Log in wherever you want 
-    3. Go into settings on the right hand side 
-    4. Scroll down to 'Redirect uris' and add '127.0.0.1:8000/spotify/redirect
+    3. Create an App call it whatever you want 
+    4. Go into settings on the right hand side 
+    5. Scroll down to 'Redirect uris' and add '127.0.0.1:8000/spotify/redirect
+    6. Update the client id and secret in the python program in the file at TeamSoftwareprojectucc/spotifyapp/spotifyAPI/client_secrets.py 
+    7. MAKE SURE CLIENT SECRETS AND ID ARE CHANGED BECAUSE IT WILL NOT WORK 
 
 ## Run the program...
 
