@@ -103,6 +103,10 @@
     margin-right: auto;
   }
 
+  #update_details {
+    width: 1000px;
+  }
+
   #votes_to_skip, #pause_button, #skip_button {
     display: inline-block;
   }
@@ -113,13 +117,22 @@
     padding-right: 3em;
   }
 
+  /* #update_details {
+    border: #28a745 solid 0.5em;
+    border-radius: 1em;
+    background-color: #28a745;
+    margin-top: 2em;
+  } */
+
   #chat {
     height: 540px;
     margin-bottom: 1em;
     margin-right: 0.5em;
     border-width: 3px !important;
     grid-area: middle-right;
-    background-color: #28a745;
+    background-color: black;
+    border-color: black !important;
+    color: black !important;
     overflow-y: auto;
   }
 
@@ -146,7 +159,7 @@
     font-family: "Fira Sans";
     font-weight: bold;
   }
-  
+
   p {
     color: #ffffff;
     text-align: center;
