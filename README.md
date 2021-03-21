@@ -17,11 +17,12 @@ CSIT: https://www.ucc.ie/en/compsci/
     Make sure you have pip installed - (By downloadin python 3.5 or higher its automatically there) 
     Make sure you have npm installed - https://www.npmjs.com/get-npm
     Make sure you have virtualenv installed - pip install virtualenv
+
 ## Download or just checkout the link! 
     spotifyy-rooms.herokuapp.com
     
     else:
-    
+        Public Github: https://github.com/RackiSebastian/TeamSoftwareProjectUcc  
         Follow instructions below to install 
 
 ## Clone the project 
