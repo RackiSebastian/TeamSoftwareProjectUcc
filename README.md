@@ -5,6 +5,10 @@ This GitHub repo began as a Team Software Project in the third year CS3305 Modul
 UCC: https://www.ucc.ie/en/  
 CSIT: https://www.ucc.ie/en/compsci/
 
+
+![image](https://user-images.githubusercontent.com/23193565/112290836-81bc3180-8c87-11eb-8d42-481c835af1dd.png)
+
+
 ## Team 
     Sebastian Racki: 118459412 
     Cathal Donovan O'Neill: 118495052
